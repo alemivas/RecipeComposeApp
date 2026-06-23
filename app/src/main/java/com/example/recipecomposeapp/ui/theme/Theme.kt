@@ -1,56 +1,54 @@
 package com.example.recipecomposeapp.ui.theme
 
-import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
 
-private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+private val RecipesAppDarkColorScheme = darkColorScheme(
+    primary = PrimaryColorDark,
+    onPrimary = TextPrimaryColorDark,
+    error = AccentColorDark,
+    onError = TextPrimaryColorDark,
+    tertiary = AccentBlueDark,
+    onTertiary = TextPrimaryColorDark,
+    tertiaryContainer = SliderTrackColorDark,
+    onTertiaryContainer = AccentBlueDark,
+    background  = BackgroundColorDark,
+    onBackground = PrimaryColorDark,
+    surface = SurfaceColorDark,
+    onSurface = TextSecondaryColorDark,
+    outline = DividerColorDark,
+    surfaceVariant = SurfaceVariantColorDark,
+    onSurfaceVariant = TextSecondaryColorDark,
 )
 
-private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+private val RecipesAppLightColorScheme = lightColorScheme(
+    primary = PrimaryColor,
+    onPrimary = TextPrimaryColor,
+    error = AccentColor,
+    onError = TextPrimaryColor,
+    tertiary = AccentBlue,
+    onTertiary = TextPrimaryColor,
+    tertiaryContainer = SliderTrackColor,
+    onTertiaryContainer = AccentBlue,
+    background  = BackgroundColor,
+    onBackground = PrimaryColor,
+    surface = SurfaceColor,
+    onSurface = TextSecondaryColor,
+    outline = DividerColor,
+    surfaceVariant = SurfaceVariantColor,
+    onSurfaceVariant = TextSecondaryColor,
 )
 
 @Composable
-fun RecipeComposeAppTheme(
+fun RecipeAppTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
-    val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-        }
-
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
-    }
-
     MaterialTheme(
-        colorScheme = colorScheme,
+        colorScheme = if (darkTheme) RecipesAppDarkColorScheme else RecipesAppLightColorScheme,
         typography = recipesAppTypography,
         content = content
     )
