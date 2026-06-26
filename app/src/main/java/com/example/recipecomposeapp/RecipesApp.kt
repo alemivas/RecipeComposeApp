@@ -14,6 +14,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.recipecomposeapp.ui.categories.CategoriesScreen
 import com.example.recipecomposeapp.ui.navigation.BottomNavigation
 import com.example.recipecomposeapp.ui.theme.RecipeAppTheme
 
@@ -41,19 +42,6 @@ fun RecipesApp() {
                 }
             }
         }
-    }
-}
-
-@Composable
-fun CategoriesScreen() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(
-            text = "Категории",
-            style = MaterialTheme.typography.displayLarge
-        )
     }
 }
 

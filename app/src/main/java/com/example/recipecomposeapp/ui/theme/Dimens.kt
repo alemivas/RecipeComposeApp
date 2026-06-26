@@ -11,7 +11,7 @@ object Dimens {
     val paddingMain = 16.dp
     val paddingLarge = 24.dp
 // Высоты экранов / компонентов
-    val topAppBarHeight = 224.dp
+    val HeaderHeight = 224.dp
     val categoryCardHeight = 220.dp
     val productCardHeight = 132.dp
 // Тени
