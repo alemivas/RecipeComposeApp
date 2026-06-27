@@ -13,7 +13,9 @@ import com.example.recipecomposeapp.ui.components.ScreenHeader
 import com.example.recipecomposeapp.ui.theme.Dimens
 
 @Composable
-fun RecipesScreen() {
+fun RecipesScreen(
+    modifier: Modifier = Modifier
+) {
     Box(
         modifier = Modifier.fillMaxSize(),
     ) {
