@@ -35,7 +35,7 @@ fun BottomNavigation(
                 containerColor = MaterialTheme.colorScheme.tertiary,
                 contentColor = MaterialTheme.colorScheme.onTertiary,
             ),
-            shape = RoundedCornerShape(size = Dimens.buttonCornerRadius),
+            shape = RoundedCornerShape(size = Dimens.cornerRadius),
             onClick = onCategoriesClick,
         ) {
             Text("Категории")
@@ -49,7 +49,7 @@ fun BottomNavigation(
                 containerColor = MaterialTheme.colorScheme.error,
                 contentColor = MaterialTheme.colorScheme.onError,
             ),
-            shape = RoundedCornerShape(size = Dimens.buttonCornerRadius),
+            shape = RoundedCornerShape(size = Dimens.cornerRadius),
             onClick = onFavoriteClick,
         ) {
             Text("Избранное")
