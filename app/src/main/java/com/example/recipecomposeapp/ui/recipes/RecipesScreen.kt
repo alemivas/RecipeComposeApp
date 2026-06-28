@@ -14,10 +14,10 @@ import com.example.recipecomposeapp.ui.theme.Dimens
 
 @Composable
 fun RecipesScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
     ) {
         Column {
             ScreenHeader(

@@ -13,9 +13,11 @@ import com.example.recipecomposeapp.ui.components.ScreenHeader
 import com.example.recipecomposeapp.ui.theme.Dimens
 
 @Composable
-fun FavoritesScreen() {
+fun FavoritesScreen(
+    modifier: Modifier = Modifier,
+) {
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
     ) {
         Column {
             ScreenHeader(
