@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import com.example.recipecomposeapp.R
-import com.example.recipecomposeapp.ui.components.ScreenHeader
+import com.example.recipecomposeapp.ui.ScreenHeader
 import com.example.recipecomposeapp.ui.theme.Dimens
 
 @Composable
