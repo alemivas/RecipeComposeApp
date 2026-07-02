@@ -21,6 +21,7 @@ import com.example.recipecomposeapp.ui.theme.RecipeAppTheme
 fun BottomNavigation(
     onCategoriesClick: () -> Unit,
     onFavoriteClick: () -> Unit,
+    onRecipesClick: () -> Unit,
 ) {
     Row(
         modifier = Modifier
@@ -54,6 +55,20 @@ fun BottomNavigation(
         ) {
             Text("Избранное")
         }
+        Spacer(modifier = Modifier.width(Dimens.paddingSmall))
+        Button(
+            modifier = Modifier
+                .weight(1f)
+                .height(Dimens.buttonHeight),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.tertiary,
+                contentColor = MaterialTheme.colorScheme.onTertiary,
+            ),
+            shape = RoundedCornerShape(size = Dimens.cornerRadius),
+            onClick = onRecipesClick,
+        ) {
+            Text("Рецепты")
+        }
     }
 }
 
@@ -64,6 +79,7 @@ fun BottomNavigationPreview() {
         BottomNavigation(
             onCategoriesClick = {},
             onFavoriteClick = {},
+            onRecipesClick = {},
         )
     }
 }
