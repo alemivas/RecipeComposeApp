@@ -10,6 +10,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import com.example.recipecomposeapp.R
 import com.example.recipecomposeapp.core.ui.ScreenHeader
+import com.example.recipecomposeapp.data.model.CategoryDto
+import com.example.recipecomposeapp.ui.categories.model.toUiModel
 import com.example.recipecomposeapp.ui.theme.Dimens
 
 @Composable
@@ -28,6 +30,10 @@ fun CategoriesScreen(
             Text(
                 text = "Заглушка: Список категорий",
                 modifier = Modifier.padding(Dimens.paddingMain)
+            )
+            CategoryItem(
+                category = CategoryDto(id = 0, title = "Бургеры", description = "Рецепты всех популярных видов бургеров", imageUrl = "burger.png").toUiModel(),
+                onClick = {},
             )
         }
     }
