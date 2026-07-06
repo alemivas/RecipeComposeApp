@@ -34,20 +34,15 @@ fun CategoryItem(
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
     ) {
         AsyncImage(
-//            model = "burger-hamburger.png",
-//            model = "burger.png",
             model = category.imageUrl,
-//            model = null,
             contentDescription = "Изображение категории ${category.title}",
             modifier = Modifier
                 .fillMaxWidth()
                 .aspectRatio(1.2f)
-//                .clip(CircleShape)
                 ,
             contentScale = ContentScale.Crop,
             placeholder = painterResource(R.drawable.img_placeholder),
             error = painterResource(R.drawable.img_error),
-//            error = painterResource(R.drawable.img_placeholder),
         )
         Column(
             modifier = Modifier.padding(Dimens.paddingMedium),
@@ -55,17 +50,16 @@ fun CategoryItem(
         {
             Text(
                 text = category.title.uppercase(),
-//                modifier = Modifier.padding(Dimens.paddingMedium),
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.primary,
             )
             Spacer(modifier = Modifier.height(Dimens.paddingMedium),)
             Text(
                 text = category.description,
-//                modifier = Modifier.padding(Dimens.paddingMedium),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 maxLines = 3,
+                minLines = 3,
             )
         }
     }

@@ -37,7 +37,7 @@ fun RecipesApp() {
                     .fillMaxSize(),
             ) {
                 when (currentScreen) {
-                    ScreenId.CATEGORIES -> CategoriesScreen()
+                    ScreenId.CATEGORIES -> CategoriesScreen(onCategoryClick = {})
                     ScreenId.FAVORITES -> FavoritesScreen()
                     ScreenId.RECIPES -> RecipesScreen()
                 }
