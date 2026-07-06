@@ -44,16 +44,18 @@ fun CategoryItem(
             placeholder = painterResource(R.drawable.img_placeholder),
             error = painterResource(R.drawable.img_error),
         )
+
         Column(
             modifier = Modifier.padding(Dimens.paddingMedium),
-        )
-        {
+        ){
             Text(
                 text = category.title.uppercase(),
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.primary,
             )
-            Spacer(modifier = Modifier.height(Dimens.paddingMedium),)
+
+            Spacer(modifier = Modifier.height(Dimens.paddingMedium))
+
             Text(
                 text = category.description,
                 style = MaterialTheme.typography.bodySmall,
