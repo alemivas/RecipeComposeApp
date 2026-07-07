@@ -21,6 +21,8 @@ import com.example.recipecomposeapp.ui.theme.RecipeAppTheme
 fun RecipesApp() {
     RecipeAppTheme {
         var currentScreen by remember { mutableStateOf(ScreenId.CATEGORIES) }
+        var selectedCategoryId by remember { mutableStateOf<Int?>(null) }
+
         Scaffold(
             modifier = Modifier.fillMaxSize(),
             bottomBar = {
@@ -37,9 +39,12 @@ fun RecipesApp() {
                     .fillMaxSize(),
             ) {
                 when (currentScreen) {
-                    ScreenId.CATEGORIES -> CategoriesScreen(onCategoryClick = {})
+                    ScreenId.CATEGORIES -> CategoriesScreen(onCategoryClick = { categoryId ->
+                        selectedCategoryId = categoryId
+                        currentScreen = ScreenId.RECIPES
+                    })
                     ScreenId.FAVORITES -> FavoritesScreen()
-                    ScreenId.RECIPES -> RecipesScreen()
+                    ScreenId.RECIPES -> RecipesScreen(categoryId = selectedCategoryId)
                 }
             }
         }

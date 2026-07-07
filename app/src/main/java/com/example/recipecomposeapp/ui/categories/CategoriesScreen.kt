@@ -9,7 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.itemsIndexed
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -46,10 +46,10 @@ fun CategoriesScreen(
                 horizontalArrangement = Arrangement.spacedBy(Dimens.paddingMain),
                 verticalArrangement = Arrangement.spacedBy(Dimens.paddingMain),
             ) {
-                itemsIndexed(getCategories()) { index, category ->
+                items(getCategories(), key = { it.id }) { category ->
                     CategoryItem(
                         category = category.toUiModel(),
-                        onClick = { onCategoryClick(index) },
+                        onClick = { onCategoryClick(category.id) },
                     )
                 }
             }
