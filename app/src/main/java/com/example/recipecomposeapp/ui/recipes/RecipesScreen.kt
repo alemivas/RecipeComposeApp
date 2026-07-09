@@ -14,6 +14,7 @@ import com.example.recipecomposeapp.ui.theme.Dimens
 
 @Composable
 fun RecipesScreen(
+    categoryId: Int?,
     modifier: Modifier = Modifier,
 ) {
     Box(
@@ -25,10 +26,18 @@ fun RecipesScreen(
                 contentDescription = "Фоновая фотография еды",
                 title = "РЕЦЕПТЫ",
             )
+
             Text(
                 text = "Скоро здесь будет список рецептов",
                 modifier = Modifier.padding(Dimens.paddingMain)
             )
+
+            if (categoryId != null) {
+                Text(
+                    text = "Выбрана категория с id = $categoryId",
+                    modifier = Modifier.padding(Dimens.paddingMain)
+                )
+            }
         }
     }
 }
