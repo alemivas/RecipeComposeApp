@@ -49,7 +49,7 @@ fun RecipesApp() {
                     )
                     ScreenId.FAVORITES -> FavoritesScreen()
                     ScreenId.RECIPES -> RecipesScreen(
-                        categoryId = selectedCategoryId ?: error("Category ID is required"),
+                        categoryId = selectedCategoryId,
                         categoryTitle = selectedCategoryTitle,
                         onRecipeClick = {},
                     )

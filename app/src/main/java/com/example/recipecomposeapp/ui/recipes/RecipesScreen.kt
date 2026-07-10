@@ -28,7 +28,7 @@ import com.example.recipecomposeapp.ui.theme.Dimens
 
 @Composable
 fun RecipesScreen(
-    categoryId: Int,
+    categoryId: Int?,
     categoryTitle: String,
     modifier: Modifier = Modifier,
     onRecipeClick: (Int) -> Unit,
@@ -51,34 +51,29 @@ fun RecipesScreen(
                 title = categoryTitle.uppercase(),
             )
 
-            Text(
-                text = "Скоро здесь будет список рецептов",
-                modifier = Modifier.padding(Dimens.paddingMain)
-            )
-
-            if (categoryId != null) {
-                Text(
-                    text = "Выбрана категория с id = $categoryId",
-                    modifier = Modifier.padding(Dimens.paddingMain)
-                )
-            }
-
             Spacer(modifier = Modifier.height(Dimens.paddingMain))
 
-            LazyColumn(
-                contentPadding = PaddingValues(
-                    start = Dimens.paddingMain,
-                    end = Dimens.paddingMain,
-                    bottom = Dimens.paddingMain
-                ),
-                verticalArrangement = Arrangement.spacedBy(Dimens.paddingMain),
-            ) {
-                items(recipes, key = { it.id }) { recipe ->
-                    RecipeItem(
-                        recipe = recipe,
-                        onClick = { onRecipeClick(recipe.id) },
-                    )
+            if (categoryId != null) {
+                LazyColumn(
+                    contentPadding = PaddingValues(
+                        start = Dimens.paddingMain,
+                        end = Dimens.paddingMain,
+                        bottom = Dimens.paddingMain
+                    ),
+                    verticalArrangement = Arrangement.spacedBy(Dimens.paddingMain),
+                ) {
+                    items(recipes, key = { it.id }) { recipe ->
+                        RecipeItem(
+                            recipe = recipe,
+                            onClick = { onRecipeClick(recipe.id) },
+                        )
+                    }
                 }
+            } else {
+                Text(
+                    text = "Выберите категорию для отображения списка рецептов",
+                    modifier = Modifier.padding(Dimens.paddingMain)
+                )
             }
         }
     }
