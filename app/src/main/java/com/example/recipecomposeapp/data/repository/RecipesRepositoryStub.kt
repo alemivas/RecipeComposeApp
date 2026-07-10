@@ -60,6 +60,24 @@ private val burgerRecipes = listOf(
     ),
 )
 
+private val dessertRecipes = listOf(
+    RecipeDto(
+        id = 2,
+        title = "Ягодный мусс",
+        ingredients = listOf(),
+        method = listOf(),
+        imageUrl = "dessert-v-stakane.jpg"
+    ),
+
+    RecipeDto(
+        id = 3,
+        title = "Кокосово-шоколадный рулет",
+        ingredients = listOf(),
+        method = listOf(),
+        imageUrl = "dessert-kokos-shoko-rulet.jpg"
+    ),
+)
+
 fun getCategories(): List<CategoryDto> {
     return categories
 }
@@ -67,6 +85,7 @@ fun getCategories(): List<CategoryDto> {
 fun getRecipesByCategoryId(categoryId: Int): List<RecipeDto> {
     return when (categoryId) {
         0 -> burgerRecipes  // Имитация GET /category/0/recipes
+        1 -> dessertRecipes  // Имитация GET /category/1/recipes
         else -> emptyList() // Остальные категории пока пустые
     }
 }
