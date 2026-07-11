@@ -45,6 +45,7 @@ fun CategoriesScreen(
                 ),
                 horizontalArrangement = Arrangement.spacedBy(Dimens.paddingMain),
                 verticalArrangement = Arrangement.spacedBy(Dimens.paddingMain),
+                modifier = Modifier.weight(1f),
             ) {
                 items(getCategories(), key = { it.id }) { category ->
                     CategoryItem(

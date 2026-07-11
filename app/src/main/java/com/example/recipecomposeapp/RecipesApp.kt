@@ -1,5 +1,6 @@
 package com.example.recipecomposeapp
 
+import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -51,7 +52,9 @@ fun RecipesApp() {
                     ScreenId.RECIPES -> RecipesScreen(
                         categoryId = selectedCategoryId,
                         categoryTitle = selectedCategoryTitle,
-                        onRecipeClick = {},
+                        onRecipeClick = { recipeId ->
+                            Log.d("click", "Recipe id=$recipeId clicked")
+                        },
                     )
                 }
             }

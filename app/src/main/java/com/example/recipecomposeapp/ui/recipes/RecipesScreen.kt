@@ -61,11 +61,12 @@ fun RecipesScreen(
                         bottom = Dimens.paddingMain
                     ),
                     verticalArrangement = Arrangement.spacedBy(Dimens.paddingMain),
+                    modifier = Modifier.weight(1f),
                 ) {
                     items(recipes, key = { it.id }) { recipe ->
                         RecipeItem(
                             recipe = recipe,
-                            onClick = { onRecipeClick(recipe.id) },
+                            onClick = onRecipeClick,
                         )
                     }
                 }
