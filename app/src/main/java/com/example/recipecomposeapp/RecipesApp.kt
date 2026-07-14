@@ -1,5 +1,6 @@
 package com.example.recipecomposeapp
 
+import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -22,6 +23,7 @@ fun RecipesApp() {
     RecipeAppTheme {
         var currentScreen by remember { mutableStateOf(ScreenId.CATEGORIES) }
         var selectedCategoryId by remember { mutableStateOf<Int?>(null) }
+        var selectedCategoryTitle by remember { mutableStateOf("") }
 
         Scaffold(
             modifier = Modifier.fillMaxSize(),
@@ -39,12 +41,21 @@ fun RecipesApp() {
                     .fillMaxSize(),
             ) {
                 when (currentScreen) {
-                    ScreenId.CATEGORIES -> CategoriesScreen(onCategoryClick = { categoryId ->
-                        selectedCategoryId = categoryId
-                        currentScreen = ScreenId.RECIPES
-                    })
+                    ScreenId.CATEGORIES -> CategoriesScreen(
+                        onCategoryClick = { categoryId, categoryTitle ->
+                            selectedCategoryId = categoryId
+                            selectedCategoryTitle = categoryTitle
+                            currentScreen = ScreenId.RECIPES
+                        }
+                    )
                     ScreenId.FAVORITES -> FavoritesScreen()
-                    ScreenId.RECIPES -> RecipesScreen(categoryId = selectedCategoryId)
+                    ScreenId.RECIPES -> RecipesScreen(
+                        categoryId = selectedCategoryId,
+                        categoryTitle = selectedCategoryTitle,
+                        onRecipeClick = { recipeId ->
+                            Log.d("click", "Recipe id=$recipeId clicked")
+                        },
+                    )
                 }
             }
         }
