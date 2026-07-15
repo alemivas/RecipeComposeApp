@@ -28,13 +28,16 @@ import com.example.recipecomposeapp.ui.theme.Dimens
 
 @Composable
 fun RecipesScreen(
-    categoryId: Int?,
-    categoryTitle: String,
+//    categoryId: Int?,
+    categoryId: Int? = 0,
+//    categoryTitle: String,
+    categoryTitle: String = "Заглушка",  // TODO
     modifier: Modifier = Modifier,
     onRecipeClick: (Int) -> Unit,
 ) {
     var recipes by remember { mutableStateOf<List<RecipeUiModel>>(emptyList()) }
 
+//    LaunchedEffect(categoryId) {
     LaunchedEffect(categoryId) {
         categoryId?.let {
             recipes = getRecipesByCategoryId(it).map { dto -> dto.toUiModel() }
