@@ -22,8 +22,8 @@ import com.example.recipecomposeapp.ui.theme.Dimens
 @Composable
 fun CategoriesScreen(
     modifier: Modifier = Modifier,
-//    onCategoryClick: (Int, String) -> Unit,
-    onCategoryClick: (Int) -> Unit,
+    onCategoryClick: (Int, String) -> Unit,
+//    onCategoryClick: (Int) -> Unit,
 ) {
     Box(
         modifier = modifier.fillMaxSize(),
@@ -51,7 +51,7 @@ fun CategoriesScreen(
                 items(getCategories(), key = { it.id }) { category ->
                     CategoryItem(
                         category = category.toUiModel(),
-                        onClick = { onCategoryClick(category.id/*, category.title*/) },
+                        onClick = { onCategoryClick(category.id, category.title) },
                     )
                 }
             }

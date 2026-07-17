@@ -30,7 +30,8 @@ fun RecipesApp() {
 //                    onFavoriteClick = { currentScreen = ScreenId.FAVORITES },
                     onFavoriteClick = { navController.navigate(Destination.Favorites.route) },
 //                    onRecipesClick = { currentScreen = ScreenId.RECIPES },
-                    onRecipesClick = { navController.navigate(Destination.Recipes.route) },
+//                    onRecipesClick = { navController.navigate(Destination.Recipes.route) },
+                    onRecipesClick = { navController.navigate(Destination.Recipes.createRoute(categoryId = 0, categoryTitle = "")) },
                 )
             }
         ) { paddingValues ->

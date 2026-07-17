@@ -28,10 +28,10 @@ import com.example.recipecomposeapp.ui.theme.Dimens
 
 @Composable
 fun RecipesScreen(
-//    categoryId: Int?,
-    categoryId: Int? = 0,
-//    categoryTitle: String,
-    categoryTitle: String = "Заглушка",  // TODO
+    categoryId: Int?,
+//    categoryId: Int? = 0,
+    categoryTitle: String,
+//    categoryTitle: String = "Заглушка",  // TODO
     modifier: Modifier = Modifier,
     onRecipeClick: (Int) -> Unit,
 ) {
