@@ -23,7 +23,6 @@ import com.example.recipecomposeapp.ui.theme.Dimens
 fun CategoriesScreen(
     modifier: Modifier = Modifier,
     onCategoryClick: (Int, String) -> Unit,
-//    onCategoryClick: (Int) -> Unit,
 ) {
     Box(
         modifier = modifier.fillMaxSize(),

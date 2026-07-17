@@ -22,17 +22,18 @@ fun AppNavHost(
         composable(route = Destination.Categories.route) {
             CategoriesScreen(
                 onCategoryClick = { categoryId, categoryTitle ->
-//                onCategoryClick = {
-//                    navController.navigate("${Destination.Recipes.route}/$categoryId")
-                    navController.navigate(Destination.Recipes.createRoute(categoryId, categoryTitle))
-//                    navController.navigate("recipes/$categoryId")
+                    navController.navigate(
+                        Destination.Recipes.createRoute(
+                            categoryId,
+                            categoryTitle
+                        )
+                    )
                 },
             )
         }
 
         composable(
             route = Destination.Recipes.route,
-//            arguments = listOf(navArgument("categoryId") { type = NavType.IntType }),
             arguments = listOf(
                 navArgument("categoryId") { type = NavType.IntType },
                 navArgument("categoryTitle") { type = NavType.StringType }
@@ -43,9 +44,6 @@ fun AppNavHost(
             RecipesScreen(
                 categoryId = categoryId,
                 categoryTitle = categoryTitle,
-//                onRecipeClick = {
-//                    navController.popBackStack()
-//                }
                 onRecipeClick = { recipeId ->
                     Log.d("click", "Recipe id=$recipeId clicked")
                 },
