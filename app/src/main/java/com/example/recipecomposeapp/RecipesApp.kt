@@ -8,8 +8,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
+import com.example.recipecomposeapp.data.repository.getCategories
 import com.example.recipecomposeapp.navigation.AppNavHost
 import com.example.recipecomposeapp.navigation.Destination
+import com.example.recipecomposeapp.ui.categories.model.toUiModel
 import com.example.recipecomposeapp.ui.navigation.BottomNavigation
 import com.example.recipecomposeapp.ui.theme.RecipeAppTheme
 
@@ -25,9 +27,10 @@ fun RecipesApp() {
                     onCategoriesClick = { navController.navigate(Destination.Categories.route) },
                     onFavoriteClick = { navController.navigate(Destination.Favorites.route) },
                     onRecipesClick = {
+                        val category = getCategories().first().toUiModel()
                         navController.navigate(
                             Destination.Recipes.createRoute(
-                                categoryId = 0, categoryTitle = ""
+                                categoryId = category.id, categoryTitle = category.title
                             )
                         )
                     },
