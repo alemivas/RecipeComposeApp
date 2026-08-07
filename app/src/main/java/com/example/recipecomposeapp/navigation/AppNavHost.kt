@@ -1,6 +1,5 @@
 package com.example.recipecomposeapp.navigation
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -8,8 +7,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.recipecomposeapp.ui.categories.CategoriesScreen
+import com.example.recipecomposeapp.ui.details.RecipeDetailsScreen
 import com.example.recipecomposeapp.ui.favorites.FavoritesScreen
 import com.example.recipecomposeapp.ui.recipes.RecipesScreen
+import com.example.recipecomposeapp.ui.recipes.model.RecipeUiModel
 
 @Composable
 fun AppNavHost(
@@ -44,10 +45,26 @@ fun AppNavHost(
             RecipesScreen(
                 categoryId = categoryId,
                 categoryTitle = categoryTitle,
-                onRecipeClick = { recipeId ->
-                    Log.d("click", "Recipe id=$recipeId clicked")
+                onRecipeClick = { recipeId, recipe ->
+                    navController.currentBackStackEntry?.savedStateHandle?.set(
+                        KEY_RECIPE_OBJECT,
+                        recipe
+                    )
+                    navController.navigate(
+                        Destination.Recipe.createRoute(recipeId)
+                    )
                 },
             )
+        }
+
+        composable(
+            route = Destination.Recipe.route,
+        ) {
+            val recipe =
+                navController.previousBackStackEntry?.savedStateHandle?.get<RecipeUiModel>(
+                    KEY_RECIPE_OBJECT
+                )
+            RecipeDetailsScreen(recipe)
         }
 
         composable(route = Destination.Favorites.route) {
@@ -55,3 +72,5 @@ fun AppNavHost(
         }
     }
 }
+
+const val KEY_RECIPE_OBJECT = "recipe"
