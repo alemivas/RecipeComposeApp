@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.recipecomposeapp.ui.categories.CategoriesScreen
 import com.example.recipecomposeapp.ui.details.RecipeDetailsScreen
+import com.example.recipecomposeapp.ui.error.ErrorScreen
 import com.example.recipecomposeapp.ui.favorites.FavoritesScreen
 import com.example.recipecomposeapp.ui.recipes.RecipesScreen
 import com.example.recipecomposeapp.ui.recipes.model.RecipeUiModel
@@ -64,7 +65,10 @@ fun AppNavHost(
                 navController.previousBackStackEntry?.savedStateHandle?.get<RecipeUiModel>(
                     KEY_RECIPE_OBJECT
                 )
-            RecipeDetailsScreen(recipe)
+            if (recipe != null)
+                RecipeDetailsScreen(recipe)
+            else
+                ErrorScreen("Рецепт не найден")
         }
 
         composable(route = Destination.Favorites.route) {

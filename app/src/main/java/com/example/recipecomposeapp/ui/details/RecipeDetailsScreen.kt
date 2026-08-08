@@ -10,20 +10,12 @@ import com.example.recipecomposeapp.ui.theme.Dimens
 
 @Composable
 fun RecipeDetailsScreen(
-    recipe: RecipeUiModel?,
+    recipe: RecipeUiModel,
     modifier: Modifier = Modifier,
 ) {
-    if (recipe != null) {
-        Text(
-            text = recipe.title,
-            style = MaterialTheme.typography.headlineMedium,
-            modifier = modifier.padding(Dimens.paddingMain)
-        )
-    } else {
-        Text(
-            text = "Рецепт не найден",
-            style = MaterialTheme.typography.headlineMedium,
-            modifier = modifier.padding(Dimens.paddingMain)
-        )
-    }
+    Text(
+        text = recipe.title,
+        style = MaterialTheme.typography.headlineMedium,
+        modifier = modifier.padding(Dimens.paddingMain)
+    )
 }
