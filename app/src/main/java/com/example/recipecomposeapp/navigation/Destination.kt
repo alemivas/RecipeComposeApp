@@ -9,5 +9,9 @@ sealed class Destination(val route: String) {
         fun createRoute(categoryId: Int, categoryTitle: String) =
             "recipes/$categoryId/${Uri.encode(categoryTitle)}"
     }
+    object Recipe : Destination("recipe/{recipeId}") {
+        fun createRoute(recipeId: Int) =
+            "recipe/$recipeId"
+    }
     object Favorites : Destination("favorites")
 }
