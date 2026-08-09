@@ -26,7 +26,7 @@ fun ErrorScreen(
             style = MaterialTheme.typography.headlineMedium,
             textAlign = TextAlign.Center,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = modifier
+            modifier = Modifier
                 .padding(Dimens.paddingMain)
         )
     }
