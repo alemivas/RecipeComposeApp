@@ -23,6 +23,7 @@ object Dimens {
     val iconSizeSmall = 24.dp
     val iconSizeLarge = 40.dp
     val cornerRadius = 8.dp
+    val dividerThickness = 1.dp
 
     // Параметры кнопок
     val buttonHeight = 36.dp
