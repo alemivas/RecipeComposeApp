@@ -10,10 +10,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import coil3.compose.rememberAsyncImagePainter
 import com.example.recipecomposeapp.core.ui.ScreenHeader
@@ -46,26 +42,6 @@ fun RecipeDetailsScreen(
             color = MaterialTheme.colorScheme.primary,
         )
 
-//        var currentPortions by remember { mutableStateOf(recipe.servings) }
-//        var recipe_servings = 4
-//        var currentPortions by remember { mutableStateOf(1) }
-//        val scaledIngredients = remember(currentPortions) {
-////            val multiplier = currentPortions.toDouble() / recipe.servings
-//            val multiplier = currentPortions.toDouble() / recipe_servings
-//            recipe.ingredients.map { ingredient ->
-//                ingredient.copy(
-////                    amount = ingredient.amount * multiplier
-////                    quantity = (ingredient.quantity.toFloatOrNull()?.times(multiplier)).toString()
-//                    quantity = "fgfh"
-//                )
-//            }
-//        }
-//        val onPortionsChange = { newValue: Int -> currentPortions = newValue }
-//        PortionsSlider(currentPortions, onPortionsChange)
-//
-//        Text(text = currentPortions.toString())
-//        IngredientsList(scaledIngredients)
-
         Spacer(modifier = Modifier.height(Dimens.paddingMain))
 
         IngredientsList(
@@ -86,7 +62,6 @@ fun RecipeDetailsScreen(
 
         InstructionsList(
             method = recipe.method,
-//                    ingredients = recipe.ingredients,
             modifier = Modifier.padding(horizontal = Dimens.paddingMain),
         )
     }

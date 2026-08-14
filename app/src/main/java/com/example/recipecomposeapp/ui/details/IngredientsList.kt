@@ -9,7 +9,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import com.example.recipecomposeapp.ui.recipes.model.IngredientUiModel
 import com.example.recipecomposeapp.ui.theme.Dimens
 
@@ -30,11 +29,9 @@ fun IngredientsList(
             ingredients.forEachIndexed { index, ingredient ->
                 IngredientItem(
                     ingredient = ingredient,
-    //                modifier = Modifier.padding(horizontal = Dimens.paddingMediumLarge),
                 )
                 if (index < ingredients.lastIndex)
                     HorizontalDivider(
-    //                    modifier = Modifier.padding(horizontal = Dimens.paddingMediumLarge),
                         modifier = Modifier.padding(vertical = Dimens.paddingMedium),
                         thickness = Dimens.dividerThickness,
                         color = MaterialTheme.colorScheme.outline

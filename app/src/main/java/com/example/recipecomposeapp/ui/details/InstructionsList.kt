@@ -23,17 +23,14 @@ fun InstructionsList(
                 shape = RoundedCornerShape(size = Dimens.cornerRadius),
             )
             .padding(Dimens.paddingMediumLarge)
-//            .background(color = Color.Cyan),
     ) {
         if (method.isNotEmpty()) {
             method.forEachIndexed { index, item ->
                 InstructionItem(
                     item = item,
-    //                modifier = Modifier.padding(horizontal = Dimens.paddingMediumLarge),
                 )
                 if (index < method.lastIndex)
                     HorizontalDivider(
-    //                    modifier = Modifier.padding(horizontal = Dimens.paddingMediumLarge),
                         modifier = Modifier.padding(vertical = Dimens.paddingMedium),
                         thickness = Dimens.dividerThickness,
                         color = MaterialTheme.colorScheme.outline
