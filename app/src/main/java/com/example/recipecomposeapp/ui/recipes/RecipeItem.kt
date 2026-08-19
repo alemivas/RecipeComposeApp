@@ -20,11 +20,11 @@ import com.example.recipecomposeapp.ui.theme.Dimens
 @Composable
 fun RecipeItem(
     recipe: RecipeUiModel,
-    onClick: (Int, /*RecipeUiModel*/) -> Unit,
+    onClick: (Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Card(
-        onClick = { onClick(recipe.id, /*recipe*/) },
+        onClick = { onClick(recipe.id) },
         modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(size = Dimens.cornerRadius),
         elevation = CardDefaults.cardElevation(defaultElevation = Dimens.elevation),
