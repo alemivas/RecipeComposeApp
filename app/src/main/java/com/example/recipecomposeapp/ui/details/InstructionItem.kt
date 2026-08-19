@@ -10,13 +10,14 @@ import androidx.compose.ui.Modifier
 @Composable
 fun InstructionItem(
     item: String,
+    index: Int,
     modifier: Modifier = Modifier,
 ) {
     Row(
         modifier = modifier.fillMaxWidth(),
     ) {
         Text(
-            text = item,
+            text = "${index + 1}. $item",
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )

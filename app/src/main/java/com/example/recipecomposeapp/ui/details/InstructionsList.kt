@@ -28,6 +28,7 @@ fun InstructionsList(
             method.forEachIndexed { index, item ->
                 InstructionItem(
                     item = item,
+                    index = index,
                 )
                 if (index < method.lastIndex)
                     HorizontalDivider(

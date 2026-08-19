@@ -8,10 +8,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.recipecomposeapp.ui.categories.CategoriesScreen
 import com.example.recipecomposeapp.ui.details.RecipeDetailsScreen
-import com.example.recipecomposeapp.ui.error.ErrorScreen
 import com.example.recipecomposeapp.ui.favorites.FavoritesScreen
 import com.example.recipecomposeapp.ui.recipes.RecipesScreen
-import com.example.recipecomposeapp.ui.recipes.model.RecipeUiModel
 
 @Composable
 fun AppNavHost(
@@ -46,11 +44,11 @@ fun AppNavHost(
             RecipesScreen(
                 categoryId = categoryId,
                 categoryTitle = categoryTitle,
-                onRecipeClick = { recipeId, recipe ->
-                    navController.currentBackStackEntry?.savedStateHandle?.set(
-                        KEY_RECIPE_OBJECT,
-                        recipe
-                    )
+                onRecipeClick = { recipeId, /*recipe*/ ->
+//                    navController.currentBackStackEntry?.savedStateHandle?.set(
+//                        KEY_RECIPE_OBJECT,
+//                        recipe
+//                    )
                     navController.navigate(
                         Destination.Recipe.createRoute(recipeId)
                     )
@@ -60,15 +58,23 @@ fun AppNavHost(
 
         composable(
             route = Destination.Recipe.route,
-        ) {
-            val recipe =
-                navController.previousBackStackEntry?.savedStateHandle?.get<RecipeUiModel>(
-                    KEY_RECIPE_OBJECT
+            arguments = listOf(
+                navArgument("recipeId") { type = NavType.IntType },
+            ),
+        ) { backStackEntry ->
+            val recipeId = backStackEntry.arguments?.getInt("recipeId") ?: 0
+//            val recipe =
+//                navController.previousBackStackEntry?.savedStateHandle?.get<RecipeUiModel>(
+//                    KEY_RECIPE_OBJECT
+//                )
+//            val recipeId = 0
+//            if (recipe != null)
+                RecipeDetailsScreen(
+//                    recipe = recipe,
+                    recipeId = recipeId,
                 )
-            if (recipe != null)
-                RecipeDetailsScreen(recipe)
-            else
-                ErrorScreen("Рецепт не найден")
+//            else
+//                ErrorScreen("Рецепт не найден")
         }
 
         composable(route = Destination.Favorites.route) {
@@ -76,5 +82,3 @@ fun AppNavHost(
         }
     }
 }
-
-const val KEY_RECIPE_OBJECT = "recipe"
