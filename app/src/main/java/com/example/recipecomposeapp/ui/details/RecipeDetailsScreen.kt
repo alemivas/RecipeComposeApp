@@ -26,34 +26,26 @@ import com.example.recipecomposeapp.ui.theme.Dimens
 
 @Composable
 fun RecipeDetailsScreen(
-//    recipe: RecipeUiModel,
     recipeId: Int,
     modifier: Modifier = Modifier,
 ) {
-    var recipeById by remember { mutableStateOf<RecipeUiModel?>(null) }
+    var recipe by remember { mutableStateOf<RecipeUiModel?>(null) }
 
     LaunchedEffect(recipeId) {
-//        recipeId?.let {
-        recipeId.let {
-            recipeById = getRecipeById(it)?.toUiModel()
-        }
+        recipe = getRecipeById(recipeId)?.toUiModel()
     }
 
-//    recipeById?.let {
-    if (recipeById != null) {
+    recipe?.let { recipe ->
         Column(
             modifier = modifier
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
         ) {
-//            val imagePainter = rememberAsyncImagePainter(model = recipe.imageUrl)
-            val imagePainter = rememberAsyncImagePainter(model = recipeById!!.imageUrl)
+            val imagePainter = rememberAsyncImagePainter(model = recipe.imageUrl)
             ScreenHeader(
                 imagePainter = imagePainter,
-//                contentDescription = recipe.title,
-                contentDescription = recipeById!!.title,
-//                title = recipe.title.uppercase(),
-                title = recipeById!!.title.uppercase(),
+                contentDescription = recipe.title,
+                title = recipe.title.uppercase(),
             )
 
             Spacer(modifier = Modifier.height(Dimens.paddingMain))
@@ -68,15 +60,14 @@ fun RecipeDetailsScreen(
             Spacer(modifier = Modifier.height(Dimens.paddingMain))
 
             IngredientsList(
-//                ingredients = recipe.ingredients,
-                ingredients = recipeById!!.ingredients,
+                ingredients = recipe.ingredients,
                 modifier = Modifier.padding(horizontal = Dimens.paddingMain),
             )
 
             Spacer(modifier = Modifier.height(Dimens.paddingMain))
 
             Text(
-                text = "СПОСОБ ПРИГОТОВЛЕНИЯ    ",
+                text = "СПОСОБ ПРИГОТОВЛЕНИЯ",
                 modifier = Modifier.padding(horizontal = Dimens.paddingMain),
                 style = MaterialTheme.typography.displayLarge,
                 color = MaterialTheme.colorScheme.primary,
@@ -85,12 +76,9 @@ fun RecipeDetailsScreen(
             Spacer(modifier = Modifier.height(Dimens.paddingMain))
 
             InstructionsList(
-//                method = recipe.method,
-                method = recipeById!!.method,
+                method = recipe.method,
                 modifier = Modifier.padding(horizontal = Dimens.paddingMain),
             )
         }
-    } else {
-        ErrorScreen("Рецепт не найден")
-    }
+    } ?: ErrorScreen("Рецепт не найден")
 }

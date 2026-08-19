@@ -23,10 +23,7 @@ fun AppNavHost(
             CategoriesScreen(
                 onCategoryClick = { categoryId, categoryTitle ->
                     navController.navigate(
-                        Destination.Recipes.createRoute(
-                            categoryId,
-                            categoryTitle
-                        )
+                        Destination.Recipes.createRoute(categoryId, categoryTitle)
                     )
                 },
             )
@@ -44,11 +41,7 @@ fun AppNavHost(
             RecipesScreen(
                 categoryId = categoryId,
                 categoryTitle = categoryTitle,
-                onRecipeClick = { recipeId, /*recipe*/ ->
-//                    navController.currentBackStackEntry?.savedStateHandle?.set(
-//                        KEY_RECIPE_OBJECT,
-//                        recipe
-//                    )
+                onRecipeClick = { recipeId ->
                     navController.navigate(
                         Destination.Recipe.createRoute(recipeId)
                     )
@@ -63,18 +56,9 @@ fun AppNavHost(
             ),
         ) { backStackEntry ->
             val recipeId = backStackEntry.arguments?.getInt("recipeId") ?: 0
-//            val recipe =
-//                navController.previousBackStackEntry?.savedStateHandle?.get<RecipeUiModel>(
-//                    KEY_RECIPE_OBJECT
-//                )
-//            val recipeId = 0
-//            if (recipe != null)
-                RecipeDetailsScreen(
-//                    recipe = recipe,
-                    recipeId = recipeId,
-                )
-//            else
-//                ErrorScreen("Рецепт не найден")
+            RecipeDetailsScreen(
+                recipeId = recipeId,
+            )
         }
 
         composable(route = Destination.Favorites.route) {
