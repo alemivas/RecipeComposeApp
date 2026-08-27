@@ -66,6 +66,7 @@ fun RecipeDetailsScreen(
                         quantity =
                             if (ingredient.quantity.toFloatOrNull() != null)
                                 "%.2f".format(ingredient.quantity.toFloat() * multiplier)
+                                    .trimEnd('0').trimEnd(',')
                             else
                                 ingredient.quantity
                     )
