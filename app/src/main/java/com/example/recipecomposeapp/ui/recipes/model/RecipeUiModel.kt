@@ -15,6 +15,7 @@ data class RecipeUiModel(
     val method: List<String>,
     val imageUrl: String,
     val isFavorite: Boolean,
+    val servings: Int,
 ): Parcelable
 
 fun RecipeDto.toUiModel() = RecipeUiModel(
@@ -24,4 +25,7 @@ fun RecipeDto.toUiModel() = RecipeUiModel(
     method = method,
     imageUrl = if (imageUrl.startsWith("http")) imageUrl else Constants.ASSETS_URI_PREFIX + imageUrl,
     isFavorite = false,
+    servings = DEFAULT_SERVINGS,
 )
+
+const val DEFAULT_SERVINGS = 4

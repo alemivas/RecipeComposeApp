@@ -12,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -57,10 +58,29 @@ fun RecipeDetailsScreen(
                 color = MaterialTheme.colorScheme.primary,
             )
 
+            var currentPortions by remember { mutableIntStateOf(recipe.servings) }
+            val scaledIngredients = remember(currentPortions) {
+                val multiplier = currentPortions.toDouble() / recipe.servings
+                recipe.ingredients.map { ingredient ->
+                    ingredient.copy(
+                        quantity =
+                            if (ingredient.quantity.toFloatOrNull() != null)
+                                "%.2f".format(ingredient.quantity.toFloat() * multiplier)
+                            else
+                                ingredient.quantity
+                    )
+                }
+            }
+            PortionsSelector(
+                currentPortions = currentPortions,
+                onPortionsChange = { currentPortions = it },
+                modifier = Modifier.padding(horizontal = Dimens.paddingMain),
+            )
+
             Spacer(modifier = Modifier.height(Dimens.paddingMain))
 
             IngredientsList(
-                ingredients = recipe.ingredients,
+                ingredients = scaledIngredients,
                 modifier = Modifier.padding(horizontal = Dimens.paddingMain),
             )
 
