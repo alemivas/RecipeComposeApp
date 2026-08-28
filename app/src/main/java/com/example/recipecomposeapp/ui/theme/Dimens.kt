@@ -29,6 +29,9 @@ object Dimens {
     val buttonHeight = 36.dp
 
     // Параметры слайдера
-    val sliderHeight = 16.dp
-    val sliderRadius = 4.dp
+    val sliderTrackHeight = 16.dp
+    val sliderTrackRadius = 4.dp
+    val sliderThumpWidth = 8.dp
+    val sliderThumpHeight = 30.dp
+    val sliderThumpRadius = 2.dp
 }
