@@ -10,10 +10,8 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -21,7 +19,6 @@ import coil3.compose.rememberAsyncImagePainter
 import com.example.recipecomposeapp.core.ui.ScreenHeader
 import com.example.recipecomposeapp.data.repository.getRecipeById
 import com.example.recipecomposeapp.ui.error.ErrorScreen
-import com.example.recipecomposeapp.ui.recipes.model.RecipeUiModel
 import com.example.recipecomposeapp.ui.recipes.model.toUiModel
 import com.example.recipecomposeapp.ui.theme.Dimens
 
@@ -30,11 +27,7 @@ fun RecipeDetailsScreen(
     recipeId: Int,
     modifier: Modifier = Modifier,
 ) {
-    var recipe by remember { mutableStateOf<RecipeUiModel?>(null) }
-
-    LaunchedEffect(recipeId) {
-        recipe = getRecipeById(recipeId)?.toUiModel()
-    }
+    val recipe = getRecipeById(recipeId)?.toUiModel()
 
     recipe?.let { recipe ->
         Column(
@@ -66,7 +59,7 @@ fun RecipeDetailsScreen(
                         quantity =
                             if (ingredient.quantity.toFloatOrNull() != null)
                                 "%.2f".format(ingredient.quantity.toFloat() * multiplier)
-                                    .trimEnd('0').trimEnd(',')
+                                    .trimEnd('0').trimEnd(',').trimEnd('.')
                             else
                                 ingredient.quantity
                     )
