@@ -24,7 +24,7 @@ import com.example.recipecomposeapp.ui.theme.Dimens
 
 @Composable
 fun RecipeDetailsScreen(
-    recipeId: Int,
+    recipeId: Int?,
     modifier: Modifier = Modifier,
 ) {
     val recipe = getRecipeById(recipeId)?.toUiModel()
