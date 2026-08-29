@@ -23,11 +23,15 @@ object Dimens {
     val iconSizeSmall = 24.dp
     val iconSizeLarge = 40.dp
     val cornerRadius = 8.dp
+    val dividerThickness = 1.dp
 
     // Параметры кнопок
     val buttonHeight = 36.dp
 
     // Параметры слайдера
-    val sliderHeight = 16.dp
-    val sliderRadius = 4.dp
+    val sliderTrackHeight = 16.dp
+    val sliderTrackRadius = 4.dp
+    val sliderThumpWidth = 8.dp
+    val sliderThumpHeight = 30.dp
+    val sliderThumpRadius = 2.dp
 }
