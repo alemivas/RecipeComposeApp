@@ -64,16 +64,46 @@ private val dessertRecipes = listOf(
     RecipeDto(
         id = 2,
         title = "Ягодный мусс",
-        ingredients = listOf(),
-        method = listOf(),
+        ingredients = listOf(
+            IngredientDto(quantity = "250", unitOfMeasure = "г", description = "Ягоды замороженные/свежие"),
+            IngredientDto(quantity = "15", unitOfMeasure = "г", description = "Быстрорастворимый желатин"),
+            IngredientDto(quantity = "5", unitOfMeasure = "ст. л.", description = "Сахар"),
+            IngredientDto(quantity = "100", unitOfMeasure = "мл", description = "Вода"),
+            IngredientDto(quantity = "10", unitOfMeasure = "г", description = "Ванильный сахар"),
+        ),
+        method = listOf(
+            "Разморозьте замороженные ягоды или вымойте, обсушите и переберите свежие, отделив плодоножки и листья. В данном рецепте использована смесь замороженных ягод красной и черной смородины, с добавлением нескольких щепоток малины и ежевики.",
+            "Растворите желатин в горячей воде и охладите до комнатной температуры.",
+            "Измельчите ягоды до состояния пюре (с помощью пестика или блендера). Затем протрите пюре через сито, отделив косточки и крупные кусочки кожуры.",
+            "Получившуюся ягодную массу поместите в глубокую емкость. Добавьте ваниль и сахар и взбейте все 3-4 минуты, пока сахар не растворится.",
+            "Продолжая взбивать смесь, тонкой струйкой влейте растопленный желатин.",
+            "Взбейте смесь еще 10-12 минут, пока она не увеличится в объеме в два раза и не посветлеет.",
+            "Распределите массу по креманкам или бокалам и полностью охладите, поместив в холодильник на 3-4 часа. По мере охлаждения десерт застынет, но сохранит свою пышность и воздушную текстуру.",
+            "Ягодный мусс готов. Храните десерт в холодильнике и подавайте охлажденным.",
+        ),
         imageUrl = "dessert-v-stakane.jpg"
     ),
 
     RecipeDto(
         id = 3,
         title = "Кокосово-шоколадный рулет",
-        ingredients = listOf(),
-        method = listOf(),
+        ingredients = listOf(
+            IngredientDto(quantity = "7", unitOfMeasure = "г", description = "сахар"),
+            IngredientDto(quantity = "33", unitOfMeasure = "мл", description = "кипяток"),
+            IngredientDto(quantity = "0.7", unitOfMeasure = "ст. л.", description = "какао-порошок"),
+            IngredientDto(quantity = "33", unitOfMeasure = "г", description = "кокосовая стружка"),
+            IngredientDto(quantity = "20", unitOfMeasure = "г", description = "сахарная пудра"),
+            IngredientDto(quantity = "0.2", unitOfMeasure = "ч. л.", description = "сахар ванильный"),
+            IngredientDto(quantity = "26", unitOfMeasure = "г", description = "сливочное масло"),
+        ),
+        method = listOf(
+            "Для тёмного шоколадного слоя возьмём рассыпчатое печенье и измельчим его в крошку.",
+            "Какао смешать с сахаром.",
+            "Влить горячую воду и немного ароматного рома или бальзама (по желанию). Перемешать.",
+            "Вылить, не остужая, в крошку из печенья.",
+            "Мягкую тёплую массу разминаем по плотной плёнке, потом прокатываем слегка скалкой (если скалка пластиковая, за деревянную не ручаюсь, что не прилипнет!). Я нашла плотный пакет и разрезала его на две половинки, получилось 2 прямоугольника. Плёнку я на всякий случай смазала чайной ложкой растительного масла без запаха.",
+            "Для белого сливочного слоя смешиваем кокосовую стружку с пудрой и ванилью.",
+        ),
         imageUrl = "dessert-kokos-shoko-rulet.jpg"
     ),
 )
@@ -90,7 +120,7 @@ fun getRecipesByCategoryId(categoryId: Int): List<RecipeDto> {
     }
 }
 
-fun getRecipeById(recipeId: Int): RecipeDto? {
+fun getRecipeById(recipeId: Int?): RecipeDto? {
     return when (recipeId) {
         0 -> burgerRecipes[0]
         1 -> burgerRecipes[1]

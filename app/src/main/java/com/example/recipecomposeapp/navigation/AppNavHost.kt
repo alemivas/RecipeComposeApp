@@ -78,7 +78,7 @@ fun AppNavHost(
                 navArgument("recipeId") { type = NavType.IntType },
             ),
         ) { backStackEntry ->
-            val recipeId = backStackEntry.arguments?.getInt("recipeId") ?: 0
+            val recipeId = backStackEntry.arguments?.getInt("recipeId")
             RecipeDetailsScreen(
                 recipeId = recipeId,
             )
