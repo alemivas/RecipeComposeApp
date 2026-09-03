@@ -15,3 +15,9 @@ sealed class Destination(val route: String) {
     }
     object Favorites : Destination("favorites")
 }
+
+const val DEEP_LINK_SCHEME = "recipeapp"
+const val DEEP_LINK_BASE_URL = "https://recipes.androidsprint.ru"
+
+fun createRecipeDeepLink(recipeId: Int) =
+    "$DEEP_LINK_BASE_URL/recipe/$recipeId"

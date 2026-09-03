@@ -1,5 +1,6 @@
 package com.example.recipecomposeapp
 
+import android.content.Intent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -16,7 +17,7 @@ import com.example.recipecomposeapp.ui.navigation.BottomNavigation
 import com.example.recipecomposeapp.ui.theme.RecipeAppTheme
 
 @Composable
-fun RecipesApp() {
+fun RecipesApp(deepLinkIntent: Intent?) {
     RecipeAppTheme {
         val navController = rememberNavController()
 
@@ -42,7 +43,7 @@ fun RecipesApp() {
                     .padding(paddingValues)
                     .fillMaxSize(),
             ) {
-                AppNavHost(navController)
+                AppNavHost(navController, deepLinkIntent)
             }
         }
     }
@@ -51,5 +52,7 @@ fun RecipesApp() {
 @Composable
 @Preview(showBackground = true)
 fun RecipesAppPreview() {
-    RecipesApp()
+    RecipesApp(
+        deepLinkIntent = null
+    )
 }

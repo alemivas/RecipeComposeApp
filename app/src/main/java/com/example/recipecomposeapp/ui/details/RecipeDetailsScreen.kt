@@ -15,8 +15,10 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import coil3.compose.rememberAsyncImagePainter
 import com.example.recipecomposeapp.core.ui.ScreenHeader
+import com.example.recipecomposeapp.core.utils.shareRecipe
 import com.example.recipecomposeapp.data.repository.getRecipeById
 import com.example.recipecomposeapp.ui.error.ErrorScreen
 import com.example.recipecomposeapp.ui.recipes.model.toUiModel
@@ -35,11 +37,14 @@ fun RecipeDetailsScreen(
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
         ) {
+            val context = LocalContext.current
             val imagePainter = rememberAsyncImagePainter(model = recipe.imageUrl)
             ScreenHeader(
                 imagePainter = imagePainter,
                 contentDescription = recipe.title,
                 title = recipe.title.uppercase(),
+                showShareButton = true,
+                onShareClick = { shareRecipe(context, recipe.id, recipe.title) },
             )
 
             Spacer(modifier = Modifier.height(Dimens.paddingMain))
