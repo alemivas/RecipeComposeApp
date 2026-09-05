@@ -69,26 +69,9 @@ fun ScreenHeader(
                 .padding(Dimens.paddingMain),
         ) {
             if (showFavoriteButton) {
-//                Icon(
-////                    painter = painterResource(id = R.drawable.ic_heart_empty),
-//                    painter = painterResource(
-//                        id =
-//                            if (isFavorite) R.drawable.ic_heart
-//                            else R.drawable.ic_heart_empty
-//                    ),
-////                    painter = painterResource(id = R.drawable.ic_heart),
-//                    contentDescription = "Избранное",
-//                    modifier = Modifier
-//                        .size(Dimens.iconSizeLarge)
-//                        .clickable(onClick = onFavoriteToggle),
-////                    tint = MaterialTheme.colorScheme.onTertiary,
-//                    tint = Color.Unspecified,
-//                )
-                // Пример использования rememberVectorPainter с Crossfade анимацией
                 Crossfade(
                     targetState = isFavorite,
                     animationSpec = tween(durationMillis = 300),
-//                    animationSpec = tween(durationMillis = 3000),
                     label = "favorite_animation"
                 ) { isCurrentlyFavorite ->
                     // Lambda получает текущее значение targetState
@@ -117,7 +100,6 @@ fun ScreenHeader(
                     modifier = Modifier
                         .size(Dimens.iconSizeLarge)
                         .clickable(onClick = onShareClick),
-//                    tint = MaterialTheme.colorScheme.onTertiary,
                     tint = Color.Unspecified,
                 )
             }

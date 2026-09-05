@@ -41,15 +41,12 @@ fun RecipeDetailsScreen(
         ) {
             val context = LocalContext.current
             val imagePainter = rememberAsyncImagePainter(model = recipe.imageUrl)
-//            var tempIsFavorite by remember { mutableStateOf(false) }
-//            var tempIsFavorite by remember { mutableStateOf(recipe.isFavorite) }
             var isFavorite by rememberSaveable { mutableStateOf(recipe.isFavorite) }
             ScreenHeader(
                 imagePainter = imagePainter,
                 contentDescription = recipe.title,
                 title = recipe.title.uppercase(),
                 showFavoriteButton = true,
-//                onFavoriteToggle = {},
                 onFavoriteToggle = { isFavorite = !isFavorite },
                 isFavorite = isFavorite,
                 showShareButton = true,
@@ -65,11 +62,8 @@ fun RecipeDetailsScreen(
                 color = MaterialTheme.colorScheme.primary,
             )
 
-//            var currentPortions by remember { mutableIntStateOf(recipe.servings) }
             var currentPortions by rememberSaveable { mutableIntStateOf(recipe.servings) }
-//            val scaledIngredients = remember(currentPortions) {
             val scaledIngredients = remember(recipe.ingredients, currentPortions) {
-//                val multiplier = currentPortions.toDouble() / recipe.servings
                 val multiplier = currentPortions.toFloat() / recipe.servings
                 recipe.ingredients.map { ingredient ->
                     ingredient.copy(
