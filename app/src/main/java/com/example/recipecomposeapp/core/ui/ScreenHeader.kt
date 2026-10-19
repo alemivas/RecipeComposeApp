@@ -1,5 +1,7 @@
 package com.example.recipecomposeapp.core.ui
 
+import androidx.compose.animation.Crossfade
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -16,9 +18,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.vectorResource
 import com.example.recipecomposeapp.R
 import com.example.recipecomposeapp.ui.theme.Dimens
 
@@ -27,6 +33,9 @@ fun ScreenHeader(
     imagePainter: Painter,
     contentDescription: String = "",
     title: String = "",
+    showFavoriteButton: Boolean = false,
+    onFavoriteToggle: () -> Unit = {},
+    isFavorite: Boolean = false,
     showShareButton: Boolean = false,
     onShareClick: () -> Unit = {},
 ) {
@@ -59,6 +68,31 @@ fun ScreenHeader(
                 .align(Alignment.TopEnd)
                 .padding(Dimens.paddingMain),
         ) {
+            if (showFavoriteButton) {
+                Crossfade(
+                    targetState = isFavorite,
+                    animationSpec = tween(durationMillis = 300),
+                    label = "favorite_animation"
+                ) { isCurrentlyFavorite ->
+                    // Lambda получает текущее значение targetState
+                    // При изменении isFavorite, Crossfade плавно переключит между двумя иконками
+                    val heartIcon = rememberVectorPainter(
+                        image = ImageVector.vectorResource(
+                            id =
+                                if (isCurrentlyFavorite) R.drawable.ic_heart
+                                else R.drawable.ic_heart_empty
+                        )
+                    )
+                    Icon(
+                        painter = heartIcon,
+                        contentDescription = "Избранное",
+                        modifier = Modifier
+                            .size(Dimens.iconSizeLarge)
+                            .clickable(onClick = onFavoriteToggle),
+                        tint = Color.Unspecified
+                    )
+                }
+            }
             if (showShareButton) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_share),
@@ -66,7 +100,7 @@ fun ScreenHeader(
                     modifier = Modifier
                         .size(Dimens.iconSizeLarge)
                         .clickable(onClick = onShareClick),
-                    tint = MaterialTheme.colorScheme.onTertiary,
+                    tint = Color.Unspecified,
                 )
             }
         }
