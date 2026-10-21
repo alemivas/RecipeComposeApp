@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import coil3.compose.rememberAsyncImagePainter
 import com.example.recipecomposeapp.core.ui.ScreenHeader
+import com.example.recipecomposeapp.core.utils.FavoritePrefsManager
 import com.example.recipecomposeapp.core.utils.shareRecipe
 import com.example.recipecomposeapp.data.repository.getRecipeById
 import com.example.recipecomposeapp.ui.error.ErrorScreen
@@ -40,14 +41,25 @@ fun RecipeDetailsScreen(
                 .verticalScroll(rememberScrollState())
         ) {
             val context = LocalContext.current
+            val favoritePrefs = FavoritePrefsManager(context)
             val imagePainter = rememberAsyncImagePainter(model = recipe.imageUrl)
-            var isFavorite by rememberSaveable { mutableStateOf(recipe.isFavorite) }
+            var isFavorite by remember(recipeId) {
+                mutableStateOf(favoritePrefs.isFavorite(recipe.id))
+            }
             ScreenHeader(
                 imagePainter = imagePainter,
                 contentDescription = recipe.title,
                 title = recipe.title.uppercase(),
                 showFavoriteButton = true,
-                onFavoriteToggle = { isFavorite = !isFavorite },
+                onFavoriteToggle = {
+                    if (isFavorite) {
+                        favoritePrefs.removeFromFavorites(recipe.id)
+                        isFavorite = false
+                    } else {
+                        favoritePrefs.addToFavorites(recipe.id)
+                        isFavorite = true
+                    }
+                },
                 isFavorite = isFavorite,
                 showShareButton = true,
                 onShareClick = { shareRecipe(context, recipe.id, recipe.title) },
