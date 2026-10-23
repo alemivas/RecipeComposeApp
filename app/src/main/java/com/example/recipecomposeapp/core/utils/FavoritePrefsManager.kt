@@ -2,6 +2,7 @@ package com.example.recipecomposeapp.core.utils
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.core.content.edit
 
 class FavoritePrefsManager(
     context: Context,
@@ -25,17 +26,17 @@ class FavoritePrefsManager(
         val currentFavorites = getAllFavorites()
         val updatedFavorites = currentFavorites.toMutableSet()
         updatedFavorites.add(recipeId.toString())
-        sharedPreferences.edit()
-            .putStringSet(KEY_FAVORITE_RECIPES, updatedFavorites)
-            .apply() // Асинхронная запись (предпочтительно)
+        sharedPreferences.edit {
+            putStringSet(KEY_FAVORITE_RECIPES, updatedFavorites)
+        }
     }
 
     fun removeFromFavorites(recipeId: Int) {
         val currentFavorites = getAllFavorites()
         val updatedFavorites = currentFavorites.toMutableSet()
         updatedFavorites.remove(recipeId.toString())
-        sharedPreferences.edit()
-            .putStringSet(KEY_FAVORITE_RECIPES, updatedFavorites)
-            .apply() // Асинхронная запись (предпочтительно)
+        sharedPreferences.edit {
+            putStringSet(KEY_FAVORITE_RECIPES, updatedFavorites)
+        }
     }
 }

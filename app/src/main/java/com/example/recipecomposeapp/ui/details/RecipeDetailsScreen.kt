@@ -41,7 +41,7 @@ fun RecipeDetailsScreen(
                 .verticalScroll(rememberScrollState())
         ) {
             val context = LocalContext.current
-            val favoritePrefs = FavoritePrefsManager(context)
+            val favoritePrefs = remember(context) { FavoritePrefsManager(context) }
             val imagePainter = rememberAsyncImagePainter(model = recipe.imageUrl)
             var isFavorite by remember(recipeId) {
                 mutableStateOf(favoritePrefs.isFavorite(recipe.id))
