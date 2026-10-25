@@ -13,7 +13,6 @@ val Context.dataStore: DataStore<Preferences> by preferencesDataStore(
         listOf(
             SharedPreferencesMigration(
                 context = context,
-//                sharedPreferencesName = "FavoriteRecipes"
                 sharedPreferencesName = "recipe_app_prefs"
             )
         )
@@ -22,5 +21,4 @@ val Context.dataStore: DataStore<Preferences> by preferencesDataStore(
 
 object PreferencesKeys {
     val FAVORITE_RECIPE_IDS = stringSetPreferencesKey("favorite_recipe_ids")
-//    val IS_DARK_MODE = booleanPreferencesKey("is_dark_mode")
 }

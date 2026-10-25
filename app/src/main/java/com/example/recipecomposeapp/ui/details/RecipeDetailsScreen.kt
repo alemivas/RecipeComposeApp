@@ -45,15 +45,11 @@ fun RecipeDetailsScreen(
         ) {
             val context = LocalContext.current
             val coroutineScope = rememberCoroutineScope()
-//            val favoritePrefs = remember(context) { FavoritePrefsManager(context) }
             val favoriteManager = remember(context) { FavoriteDataStoreManager(context) }
             var isFavorite by remember { mutableStateOf(false) }
             LaunchedEffect(recipe.id) {
                 isFavorite = favoriteManager.isFavorite(recipe.id)
             }
-//            var isFavorite by remember(recipeId) {
-//                mutableStateOf(favoriteManager.isFavorite(recipe.id))
-//            }
             val imagePainter = rememberAsyncImagePainter(model = recipe.imageUrl)
             ScreenHeader(
                 imagePainter = imagePainter,
@@ -64,10 +60,8 @@ fun RecipeDetailsScreen(
                     coroutineScope.launch {
                         if (isFavorite) {
                             favoriteManager.removeFavorite(recipe.id)
-//                            isFavorite = false
                         } else {
                             favoriteManager.addFavorite(recipe.id)
-//                            isFavorite = true
                         }
                         isFavorite = !isFavorite
                     }
