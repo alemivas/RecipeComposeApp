@@ -10,22 +10,25 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import coil3.compose.rememberAsyncImagePainter
 import com.example.recipecomposeapp.core.ui.ScreenHeader
-import com.example.recipecomposeapp.core.utils.FavoritePrefsManager
+import com.example.recipecomposeapp.core.utils.FavoriteDataStoreManager
 import com.example.recipecomposeapp.core.utils.shareRecipe
 import com.example.recipecomposeapp.data.repository.getRecipeById
 import com.example.recipecomposeapp.ui.error.ErrorScreen
 import com.example.recipecomposeapp.ui.recipes.model.toUiModel
 import com.example.recipecomposeapp.ui.theme.Dimens
+import kotlinx.coroutines.launch
 
 @Composable
 fun RecipeDetailsScreen(
@@ -41,23 +44,32 @@ fun RecipeDetailsScreen(
                 .verticalScroll(rememberScrollState())
         ) {
             val context = LocalContext.current
-            val favoritePrefs = remember(context) { FavoritePrefsManager(context) }
-            val imagePainter = rememberAsyncImagePainter(model = recipe.imageUrl)
-            var isFavorite by remember(recipeId) {
-                mutableStateOf(favoritePrefs.isFavorite(recipe.id))
+            val coroutineScope = rememberCoroutineScope()
+//            val favoritePrefs = remember(context) { FavoritePrefsManager(context) }
+            val favoriteManager = remember(context) { FavoriteDataStoreManager(context) }
+            var isFavorite by remember { mutableStateOf(false) }
+            LaunchedEffect(recipe.id) {
+                isFavorite = favoriteManager.isFavorite(recipe.id)
             }
+//            var isFavorite by remember(recipeId) {
+//                mutableStateOf(favoriteManager.isFavorite(recipe.id))
+//            }
+            val imagePainter = rememberAsyncImagePainter(model = recipe.imageUrl)
             ScreenHeader(
                 imagePainter = imagePainter,
                 contentDescription = recipe.title,
                 title = recipe.title.uppercase(),
                 showFavoriteButton = true,
                 onFavoriteToggle = {
-                    if (isFavorite) {
-                        favoritePrefs.removeFromFavorites(recipe.id)
-                        isFavorite = false
-                    } else {
-                        favoritePrefs.addToFavorites(recipe.id)
-                        isFavorite = true
+                    coroutineScope.launch {
+                        if (isFavorite) {
+                            favoriteManager.removeFavorite(recipe.id)
+//                            isFavorite = false
+                        } else {
+                            favoriteManager.addFavorite(recipe.id)
+//                            isFavorite = true
+                        }
+                        isFavorite = !isFavorite
                     }
                 },
                 isFavorite = isFavorite,
