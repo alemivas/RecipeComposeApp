@@ -60,10 +60,11 @@ fun RecipeDetailsScreen(
                     coroutineScope.launch {
                         if (isFavorite) {
                             favoriteManager.removeFavorite(recipe.id)
+                            isFavorite = favoriteManager.isFavorite(recipe.id)
                         } else {
                             favoriteManager.addFavorite(recipe.id)
+                            isFavorite = favoriteManager.isFavorite(recipe.id)
                         }
-                        isFavorite = !isFavorite
                     }
                 },
                 isFavorite = isFavorite,
