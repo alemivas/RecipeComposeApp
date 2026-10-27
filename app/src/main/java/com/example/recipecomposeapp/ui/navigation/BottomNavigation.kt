@@ -12,8 +12,13 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.recipecomposeapp.core.utils.FavoriteDataStoreManager
 import com.example.recipecomposeapp.ui.theme.Dimens
 import com.example.recipecomposeapp.ui.theme.RecipeAppTheme
 
@@ -42,6 +47,11 @@ fun BottomNavigation(
             Text("Категории")
         }
         Spacer(modifier = Modifier.width(Dimens.paddingSmall))
+        val context = LocalContext.current
+        val favoriteManager = remember(context) { FavoriteDataStoreManager(context) }
+        val favoriteCount by favoriteManager
+            .getFavoriteCountFlow()
+            .collectAsState(initial = 0)
         Button(
             modifier = Modifier
                 .weight(1f)
@@ -53,7 +63,7 @@ fun BottomNavigation(
             shape = RoundedCornerShape(size = Dimens.cornerRadius),
             onClick = onFavoriteClick,
         ) {
-            Text("Избранное")
+            Text("${if (favoriteCount > 0) "$favoriteCount " else ""}Избранное")
         }
         Spacer(modifier = Modifier.width(Dimens.paddingSmall))
         Button(
