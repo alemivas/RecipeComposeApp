@@ -46,9 +46,11 @@ fun RecipeDetailsScreen(
             val context = LocalContext.current
             val coroutineScope = rememberCoroutineScope()
             val favoriteManager = remember(context) { FavoriteDataStoreManager(context) }
-            var isFavorite by remember { mutableStateOf(false) }
+            var isFavorite by remember(recipe.id) { mutableStateOf(false) }
+            var isUpdating by remember(recipe.id) { mutableStateOf(true) }
             LaunchedEffect(recipe.id) {
                 isFavorite = favoriteManager.isFavorite(recipe.id)
+                isUpdating = false
             }
             val imagePainter = rememberAsyncImagePainter(model = recipe.imageUrl)
             ScreenHeader(
@@ -57,13 +59,20 @@ fun RecipeDetailsScreen(
                 title = recipe.title.uppercase(),
                 showFavoriteButton = true,
                 onFavoriteToggle = {
-                    coroutineScope.launch {
-                        if (isFavorite) {
-                            favoriteManager.removeFavorite(recipe.id)
-                            isFavorite = favoriteManager.isFavorite(recipe.id)
-                        } else {
-                            favoriteManager.addFavorite(recipe.id)
-                            isFavorite = favoriteManager.isFavorite(recipe.id)
+                    if (!isUpdating) {
+                        isUpdating = true
+                        coroutineScope.launch {
+                            try {
+                                if (isFavorite) {
+                                    favoriteManager.removeFavorite(recipe.id)
+                                    isFavorite = false
+                                } else {
+                                    favoriteManager.addFavorite(recipe.id)
+                                    isFavorite = true
+                                }
+                            } finally {
+                                isUpdating = false
+                            }
                         }
                     }
                 },
