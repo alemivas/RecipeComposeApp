@@ -54,7 +54,7 @@ fun RecipeDetailsScreen(
                 contentDescription = recipe.title,
                 title = recipe.title.uppercase(),
                 showFavoriteButton = true,
-                onFavoriteToggle = {
+                onFavoriteClick = {
                     coroutineScope.launch {
                         if (isFavorite) {
                             favoriteManager.removeFavorite(recipe.id)
