@@ -45,9 +45,9 @@ fun RecipeDetailsScreen(
             val context = LocalContext.current
             val coroutineScope = rememberCoroutineScope()
             val favoriteManager = remember(context) { FavoriteDataStoreManager(context) }
-            val isFavorite by favoriteManager
-                .isFavoriteFlow(recipe.id)
-                .collectAsState(initial = false)
+            val isFavorite by remember(favoriteManager, recipe.id) {
+                favoriteManager.isFavoriteFlow(recipe.id)
+            }.collectAsState(initial = false)
             val imagePainter = rememberAsyncImagePainter(model = recipe.imageUrl)
             ScreenHeader(
                 imagePainter = imagePainter,

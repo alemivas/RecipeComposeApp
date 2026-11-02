@@ -49,9 +49,9 @@ fun BottomNavigation(
         Spacer(modifier = Modifier.width(Dimens.paddingSmall))
         val context = LocalContext.current
         val favoriteManager = remember(context) { FavoriteDataStoreManager(context) }
-        val favoriteCount by favoriteManager
-            .getFavoriteCountFlow()
-            .collectAsState(initial = 0)
+        val favoriteCount by remember(favoriteManager) {
+            favoriteManager.getFavoriteCountFlow()
+        }.collectAsState(initial = 0)
         Button(
             modifier = Modifier
                 .weight(1f)
