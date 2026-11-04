@@ -34,7 +34,7 @@ fun ScreenHeader(
     contentDescription: String = "",
     title: String = "",
     showFavoriteButton: Boolean = false,
-    onFavoriteToggle: () -> Unit = {},
+    onFavoriteClick: () -> Unit = {},
     isFavorite: Boolean = false,
     showShareButton: Boolean = false,
     onShareClick: () -> Unit = {},
@@ -88,7 +88,7 @@ fun ScreenHeader(
                         contentDescription = "Избранное",
                         modifier = Modifier
                             .size(Dimens.iconSizeLarge)
-                            .clickable(onClick = onFavoriteToggle),
+                            .clickable(onClick = onFavoriteClick),
                         tint = Color.Unspecified
                     )
                 }
