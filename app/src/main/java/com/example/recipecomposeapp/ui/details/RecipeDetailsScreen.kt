@@ -10,10 +10,9 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -46,33 +45,21 @@ fun RecipeDetailsScreen(
             val context = LocalContext.current
             val coroutineScope = rememberCoroutineScope()
             val favoriteManager = remember(context) { FavoriteDataStoreManager(context) }
-            var isFavorite by remember(recipe.id) { mutableStateOf(false) }
-            var isUpdating by remember(recipe.id) { mutableStateOf(true) }
-            LaunchedEffect(recipe.id) {
-                isFavorite = favoriteManager.isFavorite(recipe.id)
-                isUpdating = false
-            }
+            val isFavorite by remember(favoriteManager, recipe.id) {
+                favoriteManager.isFavoriteFlow(recipe.id)
+            }.collectAsState(initial = false)
             val imagePainter = rememberAsyncImagePainter(model = recipe.imageUrl)
             ScreenHeader(
                 imagePainter = imagePainter,
                 contentDescription = recipe.title,
                 title = recipe.title.uppercase(),
                 showFavoriteButton = true,
-                onFavoriteToggle = {
-                    if (!isUpdating) {
-                        isUpdating = true
-                        coroutineScope.launch {
-                            try {
-                                if (isFavorite) {
-                                    favoriteManager.removeFavorite(recipe.id)
-                                    isFavorite = false
-                                } else {
-                                    favoriteManager.addFavorite(recipe.id)
-                                    isFavorite = true
-                                }
-                            } finally {
-                                isUpdating = false
-                            }
+                onFavoriteClick = {
+                    coroutineScope.launch {
+                        if (isFavorite) {
+                            favoriteManager.removeFavorite(recipe.id)
+                        } else {
+                            favoriteManager.addFavorite(recipe.id)
                         }
                     }
                 },
