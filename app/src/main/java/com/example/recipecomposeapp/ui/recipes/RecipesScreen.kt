@@ -7,10 +7,8 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -21,7 +19,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import com.example.recipecomposeapp.R
 import com.example.recipecomposeapp.core.ui.ScreenHeader
-import com.example.recipecomposeapp.data.repository.getRecipesByCategoryId
+import com.example.recipecomposeapp.data.repository.RecipesRepositoryStub
+import com.example.recipecomposeapp.ui.error.ErrorScreen
 import com.example.recipecomposeapp.ui.recipes.model.RecipeUiModel
 import com.example.recipecomposeapp.ui.recipes.model.toUiModel
 import com.example.recipecomposeapp.ui.theme.Dimens
@@ -37,7 +36,7 @@ fun RecipesScreen(
 
     LaunchedEffect(categoryId) {
         categoryId?.let {
-            recipes = getRecipesByCategoryId(it).map { dto -> dto.toUiModel() }
+            recipes = RecipesRepositoryStub.getRecipesByCategoryId(it).map { dto -> dto.toUiModel() }
         }
     }
 
@@ -71,10 +70,7 @@ fun RecipesScreen(
                     }
                 }
             } else {
-                Text(
-                    text = "Выберите категорию для отображения списка рецептов",
-                    modifier = Modifier.padding(Dimens.paddingMain)
-                )
+                ErrorScreen("Выберите категорию для отображения списка рецептов")
             }
         }
     }
