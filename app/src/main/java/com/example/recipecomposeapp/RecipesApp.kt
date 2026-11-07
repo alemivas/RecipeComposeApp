@@ -28,7 +28,7 @@ fun RecipesApp(deepLinkIntent: Intent?) {
                     onCategoriesClick = { navController.navigate(Destination.Categories.route) },
                     onFavoriteClick = { navController.navigate(Destination.Favorites.route) },
                     onRecipesClick = {
-                        val category = RecipesRepositoryStub().getCategories().first().toUiModel()
+                        val category = RecipesRepositoryStub.getCategories().first().toUiModel()
                         navController.navigate(
                             Destination.Recipes.createRoute(
                                 categoryId = category.id, categoryTitle = category.title

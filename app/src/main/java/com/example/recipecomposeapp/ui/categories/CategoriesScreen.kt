@@ -47,7 +47,7 @@ fun CategoriesScreen(
                 verticalArrangement = Arrangement.spacedBy(Dimens.paddingMain),
                 modifier = Modifier.weight(1f),
             ) {
-                items(RecipesRepositoryStub().getCategories(), key = { it.id }) { category ->
+                items(RecipesRepositoryStub.getCategories(), key = { it.id }) { category ->
                     CategoryItem(
                         category = category.toUiModel(),
                         onClick = { onCategoryClick(category.id, category.title) },

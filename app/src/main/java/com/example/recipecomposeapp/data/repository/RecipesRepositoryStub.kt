@@ -4,7 +4,7 @@ import com.example.recipecomposeapp.data.model.CategoryDto
 import com.example.recipecomposeapp.data.model.IngredientDto
 import com.example.recipecomposeapp.data.model.RecipeDto
 
-class RecipesRepositoryStub : RecipesRepository {
+object RecipesRepositoryStub : RecipesRepository {
     private val categories = listOf(
         CategoryDto(
             id = 0,

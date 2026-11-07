@@ -34,7 +34,7 @@ fun RecipeDetailsScreen(
     recipeId: Int?,
     modifier: Modifier = Modifier,
 ) {
-    val recipe = RecipesRepositoryStub().getRecipeById(recipeId)?.toUiModel()
+    val recipe = RecipesRepositoryStub.getRecipeById(recipeId)?.toUiModel()
 
     recipe?.let { recipe ->
         Column(

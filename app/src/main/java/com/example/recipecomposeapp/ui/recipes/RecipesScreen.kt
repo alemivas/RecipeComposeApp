@@ -36,7 +36,7 @@ fun RecipesScreen(
 
     LaunchedEffect(categoryId) {
         categoryId?.let {
-            recipes = RecipesRepositoryStub().getRecipesByCategoryId(it).map { dto -> dto.toUiModel() }
+            recipes = RecipesRepositoryStub.getRecipesByCategoryId(it).map { dto -> dto.toUiModel() }
         }
     }
 

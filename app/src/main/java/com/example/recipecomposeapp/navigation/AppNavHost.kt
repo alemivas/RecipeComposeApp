@@ -89,7 +89,7 @@ fun AppNavHost(
         }
 
         composable(route = Destination.Favorites.route) {
-            val recipesRepository = RecipesRepositoryStub()
+            val recipesRepository = RecipesRepositoryStub
             val context = LocalContext.current
             val favoriteManager = remember(context) { FavoriteDataStoreManager(context) }
             FavoritesScreen(
