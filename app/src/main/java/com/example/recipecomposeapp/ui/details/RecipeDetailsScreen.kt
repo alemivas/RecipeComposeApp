@@ -23,7 +23,7 @@ import coil3.compose.rememberAsyncImagePainter
 import com.example.recipecomposeapp.core.ui.ScreenHeader
 import com.example.recipecomposeapp.core.utils.FavoriteDataStoreManager
 import com.example.recipecomposeapp.core.utils.shareRecipe
-import com.example.recipecomposeapp.data.repository.getRecipeById
+import com.example.recipecomposeapp.data.repository.RecipesRepositoryStub
 import com.example.recipecomposeapp.ui.error.ErrorScreen
 import com.example.recipecomposeapp.ui.recipes.model.toUiModel
 import com.example.recipecomposeapp.ui.theme.Dimens
@@ -34,7 +34,7 @@ fun RecipeDetailsScreen(
     recipeId: Int?,
     modifier: Modifier = Modifier,
 ) {
-    val recipe = getRecipeById(recipeId)?.toUiModel()
+    val recipe = RecipesRepositoryStub().getRecipeById(recipeId)?.toUiModel()
 
     recipe?.let { recipe ->
         Column(

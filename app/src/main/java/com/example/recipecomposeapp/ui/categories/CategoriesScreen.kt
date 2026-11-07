@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import com.example.recipecomposeapp.R
 import com.example.recipecomposeapp.core.ui.ScreenHeader
-import com.example.recipecomposeapp.data.repository.getCategories
+import com.example.recipecomposeapp.data.repository.RecipesRepositoryStub
 import com.example.recipecomposeapp.ui.categories.model.toUiModel
 import com.example.recipecomposeapp.ui.theme.Dimens
 
@@ -47,7 +47,7 @@ fun CategoriesScreen(
                 verticalArrangement = Arrangement.spacedBy(Dimens.paddingMain),
                 modifier = Modifier.weight(1f),
             ) {
-                items(getCategories(), key = { it.id }) { category ->
+                items(RecipesRepositoryStub().getCategories(), key = { it.id }) { category ->
                     CategoryItem(
                         category = category.toUiModel(),
                         onClick = { onCategoryClick(category.id, category.title) },
