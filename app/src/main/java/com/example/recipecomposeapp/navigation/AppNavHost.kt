@@ -3,11 +3,15 @@ package com.example.recipecomposeapp.navigation
 import android.content.Intent
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.example.recipecomposeapp.core.utils.FavoriteDataStoreManager
+import com.example.recipecomposeapp.data.repository.RecipesRepositoryStub
 import com.example.recipecomposeapp.ui.categories.CategoriesScreen
 import com.example.recipecomposeapp.ui.details.RecipeDetailsScreen
 import com.example.recipecomposeapp.ui.favorites.FavoritesScreen
@@ -85,7 +89,18 @@ fun AppNavHost(
         }
 
         composable(route = Destination.Favorites.route) {
-            FavoritesScreen()
+            val recipesRepository = RecipesRepositoryStub
+            val context = LocalContext.current
+            val favoriteManager = remember(context) { FavoriteDataStoreManager(context) }
+            FavoritesScreen(
+                recipesRepository = recipesRepository,
+                favoriteManager = favoriteManager,
+                onRecipeClick = { recipeId ->
+                    navController.navigate(
+                        Destination.Recipe.createRoute(recipeId)
+                    )
+                },
+            )
         }
     }
 }
