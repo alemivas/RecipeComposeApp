@@ -12,10 +12,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.recipecomposeapp.core.utils.FavoriteDataStoreManager
 import com.example.recipecomposeapp.data.repository.RecipesRepositoryStub
-import com.example.recipecomposeapp.ui.categories.CategoriesScreen
-import com.example.recipecomposeapp.ui.details.RecipeDetailsScreen
-import com.example.recipecomposeapp.ui.favorites.FavoritesScreen
-import com.example.recipecomposeapp.ui.recipes.RecipesScreen
+import com.example.recipecomposeapp.features.categories.ui.CategoriesScreen
+import com.example.recipecomposeapp.features.details.ui.RecipeDetailsScreen
+import com.example.recipecomposeapp.features.favorites.ui.FavoritesScreen
+import com.example.recipecomposeapp.features.recipes.ui.RecipesScreen
 import kotlinx.coroutines.delay
 
 @Composable

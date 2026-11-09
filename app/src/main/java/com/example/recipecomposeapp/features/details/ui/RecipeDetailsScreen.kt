@@ -1,4 +1,4 @@
-package com.example.recipecomposeapp.ui.details
+package com.example.recipecomposeapp.features.details.ui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -24,8 +24,8 @@ import com.example.recipecomposeapp.core.ui.ScreenHeader
 import com.example.recipecomposeapp.core.utils.FavoriteDataStoreManager
 import com.example.recipecomposeapp.core.utils.shareRecipe
 import com.example.recipecomposeapp.data.repository.RecipesRepositoryStub
-import com.example.recipecomposeapp.ui.error.ErrorScreen
-import com.example.recipecomposeapp.ui.recipes.model.toUiModel
+import com.example.recipecomposeapp.core.ui.ErrorScreen
+import com.example.recipecomposeapp.features.recipes.presentation.model.toUiModel
 import com.example.recipecomposeapp.ui.theme.Dimens
 import kotlinx.coroutines.launch
 

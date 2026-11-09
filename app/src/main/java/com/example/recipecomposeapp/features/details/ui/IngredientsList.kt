@@ -1,4 +1,4 @@
-package com.example.recipecomposeapp.ui.details
+package com.example.recipecomposeapp.features.details.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -9,7 +9,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.example.recipecomposeapp.ui.recipes.model.IngredientUiModel
+import com.example.recipecomposeapp.features.recipes.presentation.model.IngredientUiModel
 import com.example.recipecomposeapp.ui.theme.Dimens
 
 @Composable

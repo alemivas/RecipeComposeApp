@@ -1,4 +1,4 @@
-package com.example.recipecomposeapp.ui.details
+package com.example.recipecomposeapp.features.details.ui
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
-import com.example.recipecomposeapp.ui.recipes.model.IngredientUiModel
+import com.example.recipecomposeapp.features.recipes.presentation.model.IngredientUiModel
 
 @Composable
 fun IngredientItem(

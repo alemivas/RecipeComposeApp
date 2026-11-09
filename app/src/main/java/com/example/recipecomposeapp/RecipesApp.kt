@@ -12,7 +12,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.recipecomposeapp.data.repository.RecipesRepositoryStub
 import com.example.recipecomposeapp.navigation.AppNavHost
 import com.example.recipecomposeapp.navigation.Destination
-import com.example.recipecomposeapp.ui.categories.model.toUiModel
+import com.example.recipecomposeapp.features.categories.presentation.model.toUiModel
 import com.example.recipecomposeapp.ui.navigation.BottomNavigation
 import com.example.recipecomposeapp.ui.theme.RecipeAppTheme
 

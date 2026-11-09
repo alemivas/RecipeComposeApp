@@ -1,4 +1,4 @@
-package com.example.recipecomposeapp.ui.recipes
+package com.example.recipecomposeapp.features.recipes.ui
 
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,7 +14,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import coil3.compose.AsyncImage
 import com.example.recipecomposeapp.R
-import com.example.recipecomposeapp.ui.recipes.model.RecipeUiModel
+import com.example.recipecomposeapp.features.recipes.presentation.model.RecipeUiModel
 import com.example.recipecomposeapp.ui.theme.Dimens
 
 @Composable
