@@ -28,10 +28,16 @@ fun AppNavHost(
             val recipeId: Int? = when (uri.scheme) {
                 "recipeapp" ->
                     // recipeapp://recipe/123 → host="recipe", pathSegments=[123]
-                    if (uri.host == "recipe") uri.pathSegments[0].toIntOrNull() else null
+                    if (uri.host == "recipe")
+                        uri.pathSegments.getOrNull(0)?.toIntOrNull()
+                    else null
+
                 "https", "http" ->
                     // https://.../recipe/123 → pathSegments=[recipe, 123]
-                    if (uri.pathSegments[0] == "recipe") uri.pathSegments[1].toIntOrNull() else null
+                    if (uri.pathSegments.getOrNull(0) == "recipe")
+                        uri.pathSegments.getOrNull(1)?.toIntOrNull()
+                    else null
+
                 else -> null
             }
 
