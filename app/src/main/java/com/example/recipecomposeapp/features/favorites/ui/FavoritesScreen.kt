@@ -1,4 +1,4 @@
-package com.example.recipecomposeapp.ui.recipes
+package com.example.recipecomposeapp.features.favorites.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -10,49 +10,49 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import com.example.recipecomposeapp.R
 import com.example.recipecomposeapp.core.ui.ScreenHeader
-import com.example.recipecomposeapp.data.repository.RecipesRepositoryStub
-import com.example.recipecomposeapp.ui.error.ErrorScreen
-import com.example.recipecomposeapp.ui.recipes.model.RecipeUiModel
-import com.example.recipecomposeapp.ui.recipes.model.toUiModel
+import com.example.recipecomposeapp.core.utils.FavoriteDataStoreManager
+import com.example.recipecomposeapp.data.repository.RecipesRepository
+import com.example.recipecomposeapp.core.ui.ErrorScreen
+import com.example.recipecomposeapp.features.recipes.ui.RecipeItem
+import com.example.recipecomposeapp.features.recipes.presentation.model.toUiModel
 import com.example.recipecomposeapp.ui.theme.Dimens
+import kotlinx.coroutines.flow.map
 
 @Composable
-fun RecipesScreen(
-    categoryId: Int?,
-    categoryTitle: String,
-    modifier: Modifier = Modifier,
+fun FavoritesScreen(
+    recipesRepository: RecipesRepository,
+    favoriteManager: FavoriteDataStoreManager,
     onRecipeClick: (Int) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
-    var recipes by remember { mutableStateOf<List<RecipeUiModel>>(emptyList()) }
-
-    LaunchedEffect(categoryId) {
-        categoryId?.let {
-            recipes = RecipesRepositoryStub.getRecipesByCategoryId(it).map { dto -> dto.toUiModel() }
+    val favoriteRecipes by remember(favoriteManager) {
+        favoriteManager.getFavoriteIdsFlow().map { ids ->
+            ids.mapNotNull { recipeId ->
+                recipesRepository.getRecipeById(recipeId.toIntOrNull())?.toUiModel()
+            }
         }
-    }
+    }.collectAsState(initial = emptyList())
 
     Box(
         modifier = modifier.fillMaxSize(),
     ) {
         Column {
             ScreenHeader(
-                imagePainter = painterResource(R.drawable.bcg_recipes_list),
+                imagePainter = painterResource(R.drawable.bcg_favorites),
                 contentDescription = "Фоновая фотография еды",
-                title = categoryTitle.uppercase(),
+                title = "ИЗБРАННОЕ",
             )
 
             Spacer(modifier = Modifier.height(Dimens.paddingMain))
 
-            if (categoryId != null) {
+            if (favoriteRecipes.isNotEmpty()) {
                 LazyColumn(
                     contentPadding = PaddingValues(
                         start = Dimens.paddingMain,
@@ -62,7 +62,7 @@ fun RecipesScreen(
                     verticalArrangement = Arrangement.spacedBy(Dimens.paddingMain),
                     modifier = Modifier.weight(1f),
                 ) {
-                    items(recipes, key = { it.id }) { recipe ->
+                    items(favoriteRecipes, key = { it.id }) { recipe ->
                         RecipeItem(
                             recipe = recipe,
                             onClick = onRecipeClick,
@@ -70,7 +70,7 @@ fun RecipesScreen(
                     }
                 }
             } else {
-                ErrorScreen("Выберите категорию для отображения списка рецептов")
+                ErrorScreen("Вы еще не добавили ни одного рецепта в избранное")
             }
         }
     }

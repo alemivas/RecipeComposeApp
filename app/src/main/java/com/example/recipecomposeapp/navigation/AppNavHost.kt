@@ -12,10 +12,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.recipecomposeapp.core.utils.FavoriteDataStoreManager
 import com.example.recipecomposeapp.data.repository.RecipesRepositoryStub
-import com.example.recipecomposeapp.ui.categories.CategoriesScreen
-import com.example.recipecomposeapp.ui.details.RecipeDetailsScreen
-import com.example.recipecomposeapp.ui.favorites.FavoritesScreen
-import com.example.recipecomposeapp.ui.recipes.RecipesScreen
+import com.example.recipecomposeapp.features.categories.ui.CategoriesScreen
+import com.example.recipecomposeapp.features.details.ui.RecipeDetailsScreen
+import com.example.recipecomposeapp.features.favorites.ui.FavoritesScreen
+import com.example.recipecomposeapp.features.recipes.ui.RecipesScreen
 import kotlinx.coroutines.delay
 
 @Composable
@@ -28,10 +28,16 @@ fun AppNavHost(
             val recipeId: Int? = when (uri.scheme) {
                 "recipeapp" ->
                     // recipeapp://recipe/123 → host="recipe", pathSegments=[123]
-                    if (uri.host == "recipe") uri.pathSegments[0].toIntOrNull() else null
+                    if (uri.host == "recipe")
+                        uri.pathSegments.getOrNull(0)?.toIntOrNull()
+                    else null
+
                 "https", "http" ->
                     // https://.../recipe/123 → pathSegments=[recipe, 123]
-                    if (uri.pathSegments[0] == "recipe") uri.pathSegments[1].toIntOrNull() else null
+                    if (uri.pathSegments.getOrNull(0) == "recipe")
+                        uri.pathSegments.getOrNull(1)?.toIntOrNull()
+                    else null
+
                 else -> null
             }
 
