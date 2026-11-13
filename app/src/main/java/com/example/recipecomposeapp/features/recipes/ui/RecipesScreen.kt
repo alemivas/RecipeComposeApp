@@ -16,8 +16,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
-import com.example.recipecomposeapp.R
+import coil3.compose.rememberAsyncImagePainter
 import com.example.recipecomposeapp.core.ui.ScreenHeader
 import com.example.recipecomposeapp.data.repository.RecipesRepositoryStub
 import com.example.recipecomposeapp.core.ui.ErrorScreen
@@ -29,6 +28,7 @@ import com.example.recipecomposeapp.ui.theme.Dimens
 fun RecipesScreen(
     categoryId: Int?,
     categoryTitle: String,
+    categoryImageUrl: String,
     modifier: Modifier = Modifier,
     onRecipeClick: (Int) -> Unit,
 ) {
@@ -44,8 +44,9 @@ fun RecipesScreen(
         modifier = modifier.fillMaxSize(),
     ) {
         Column {
+            val imagePainter = rememberAsyncImagePainter(model = categoryImageUrl)
             ScreenHeader(
-                imagePainter = painterResource(R.drawable.bcg_recipes_list),
+                imagePainter = imagePainter,
                 contentDescription = "Фоновая фотография еды",
                 title = categoryTitle.uppercase(),
             )

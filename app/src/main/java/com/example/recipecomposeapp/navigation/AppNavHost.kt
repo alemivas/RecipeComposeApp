@@ -54,9 +54,9 @@ fun AppNavHost(
     ) {
         composable(route = Destination.Categories.route) {
             CategoriesScreen(
-                onCategoryClick = { categoryId, categoryTitle ->
+                onCategoryClick = { categoryId, categoryTitle, categoryImageUrl ->
                     navController.navigate(
-                        Destination.Recipes.createRoute(categoryId, categoryTitle)
+                        Destination.Recipes.createRoute(categoryId, categoryTitle, categoryImageUrl)
                     )
                 },
             )
@@ -66,14 +66,17 @@ fun AppNavHost(
             route = Destination.Recipes.route,
             arguments = listOf(
                 navArgument("categoryId") { type = NavType.IntType },
-                navArgument("categoryTitle") { type = NavType.StringType }
+                navArgument("categoryTitle") { type = NavType.StringType },
+                navArgument("categoryImageUrl") { type = NavType.StringType },
             ),
         ) { backStackEntry ->
             val categoryId = backStackEntry.arguments?.getInt("categoryId") ?: 0
             val categoryTitle = backStackEntry.arguments?.getString("categoryTitle") ?: ""
+            val categoryImageUrl = backStackEntry.arguments?.getString("categoryImageUrl") ?: ""
             RecipesScreen(
                 categoryId = categoryId,
                 categoryTitle = categoryTitle,
+                categoryImageUrl = categoryImageUrl,
                 onRecipeClick = { recipeId ->
                     navController.navigate(
                         Destination.Recipe.createRoute(recipeId)
