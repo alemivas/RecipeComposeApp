@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -12,6 +13,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.recipecomposeapp.core.utils.FavoriteDataStoreManager
 import com.example.recipecomposeapp.data.repository.RecipesRepositoryStub
+import com.example.recipecomposeapp.features.categories.presentation.CategoriesViewModel
 import com.example.recipecomposeapp.features.categories.ui.CategoriesScreen
 import com.example.recipecomposeapp.features.details.ui.RecipeDetailsScreen
 import com.example.recipecomposeapp.features.favorites.ui.FavoritesScreen
@@ -53,12 +55,16 @@ fun AppNavHost(
         startDestination = Destination.Categories.route,
     ) {
         composable(route = Destination.Categories.route) {
+            val viewModel: CategoriesViewModel = viewModel {
+                CategoriesViewModel(RecipesRepositoryStub)
+            }
             CategoriesScreen(
-                onCategoryClick = { categoryId, categoryTitle ->
+                onCategoryClick = { categoryId, categoryTitle, categoryImageUrl ->
                     navController.navigate(
-                        Destination.Recipes.createRoute(categoryId, categoryTitle)
+                        Destination.Recipes.createRoute(categoryId, categoryTitle, categoryImageUrl)
                     )
                 },
+                viewModel = viewModel,
             )
         }
 
@@ -66,14 +72,17 @@ fun AppNavHost(
             route = Destination.Recipes.route,
             arguments = listOf(
                 navArgument("categoryId") { type = NavType.IntType },
-                navArgument("categoryTitle") { type = NavType.StringType }
+                navArgument("categoryTitle") { type = NavType.StringType },
+                navArgument("categoryImageUrl") { type = NavType.StringType },
             ),
         ) { backStackEntry ->
             val categoryId = backStackEntry.arguments?.getInt("categoryId") ?: 0
             val categoryTitle = backStackEntry.arguments?.getString("categoryTitle") ?: ""
+            val categoryImageUrl = backStackEntry.arguments?.getString("categoryImageUrl") ?: ""
             RecipesScreen(
                 categoryId = categoryId,
                 categoryTitle = categoryTitle,
+                categoryImageUrl = categoryImageUrl,
                 onRecipeClick = { recipeId ->
                     navController.navigate(
                         Destination.Recipe.createRoute(recipeId)

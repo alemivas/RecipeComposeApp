@@ -31,7 +31,9 @@ fun RecipesApp(deepLinkIntent: Intent?) {
                         val category = RecipesRepositoryStub.getCategories().first().toUiModel()
                         navController.navigate(
                             Destination.Recipes.createRoute(
-                                categoryId = category.id, categoryTitle = category.title
+                                categoryId = category.id,
+                                categoryTitle = category.title,
+                                categoryImageUrl = category.imageUrl,
                             )
                         )
                     },
