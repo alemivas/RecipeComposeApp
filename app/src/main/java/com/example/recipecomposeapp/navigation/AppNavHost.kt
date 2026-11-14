@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -12,6 +13,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.recipecomposeapp.core.utils.FavoriteDataStoreManager
 import com.example.recipecomposeapp.data.repository.RecipesRepositoryStub
+import com.example.recipecomposeapp.features.categories.presentation.CategoriesViewModel
 import com.example.recipecomposeapp.features.categories.ui.CategoriesScreen
 import com.example.recipecomposeapp.features.details.ui.RecipeDetailsScreen
 import com.example.recipecomposeapp.features.favorites.ui.FavoritesScreen
@@ -53,12 +55,16 @@ fun AppNavHost(
         startDestination = Destination.Categories.route,
     ) {
         composable(route = Destination.Categories.route) {
+            val viewModel: CategoriesViewModel = viewModel {
+                CategoriesViewModel(RecipesRepositoryStub)
+            }
             CategoriesScreen(
                 onCategoryClick = { categoryId, categoryTitle, categoryImageUrl ->
                     navController.navigate(
                         Destination.Recipes.createRoute(categoryId, categoryTitle, categoryImageUrl)
                     )
                 },
+                viewModel = viewModel,
             )
         }
 

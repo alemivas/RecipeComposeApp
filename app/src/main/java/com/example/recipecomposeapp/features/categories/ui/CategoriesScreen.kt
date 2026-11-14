@@ -17,7 +17,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.recipecomposeapp.R
 import com.example.recipecomposeapp.core.ui.ErrorScreen
 import com.example.recipecomposeapp.core.ui.ScreenHeader
@@ -27,8 +26,8 @@ import com.example.recipecomposeapp.ui.theme.Dimens
 @Composable
 fun CategoriesScreen(
     onCategoryClick: (Int, String, String) -> Unit,
+    viewModel: CategoriesViewModel,
     modifier: Modifier = Modifier,
-    viewModel: CategoriesViewModel = viewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
 

@@ -2,7 +2,7 @@ package com.example.recipecomposeapp.features.categories.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.recipecomposeapp.data.repository.RecipesRepositoryStub
+import com.example.recipecomposeapp.data.repository.RecipesRepository
 import com.example.recipecomposeapp.features.categories.presentation.model.CategoriesUiState
 import com.example.recipecomposeapp.features.categories.presentation.model.toUiModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,7 +12,9 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.util.concurrent.CancellationException
 
-class CategoriesViewModel : ViewModel() {
+class CategoriesViewModel(
+    private val recipesRepository: RecipesRepository,
+) : ViewModel() {
     private val _uiState = MutableStateFlow(CategoriesUiState())
     val uiState: StateFlow<CategoriesUiState> = _uiState.asStateFlow()
 
@@ -21,7 +23,7 @@ class CategoriesViewModel : ViewModel() {
             try {
                 _uiState.update { currentState ->
                     currentState.copy(
-                        categories = RecipesRepositoryStub.getCategories().map {
+                        categories = recipesRepository.getCategories().map {
                             it.toUiModel()
                         },
                         isLoading = false,
