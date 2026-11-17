@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -17,6 +18,7 @@ import com.example.recipecomposeapp.features.categories.presentation.CategoriesV
 import com.example.recipecomposeapp.features.categories.ui.CategoriesScreen
 import com.example.recipecomposeapp.features.details.ui.RecipeDetailsScreen
 import com.example.recipecomposeapp.features.favorites.ui.FavoritesScreen
+import com.example.recipecomposeapp.features.recipes.presentation.RecipesViewModel
 import com.example.recipecomposeapp.features.recipes.ui.RecipesScreen
 import kotlinx.coroutines.delay
 
@@ -75,19 +77,17 @@ fun AppNavHost(
                 navArgument("categoryTitle") { type = NavType.StringType },
                 navArgument("categoryImageUrl") { type = NavType.StringType },
             ),
-        ) { backStackEntry ->
-            val categoryId = backStackEntry.arguments?.getInt("categoryId") ?: 0
-            val categoryTitle = backStackEntry.arguments?.getString("categoryTitle") ?: ""
-            val categoryImageUrl = backStackEntry.arguments?.getString("categoryImageUrl") ?: ""
+        ) {
+            val viewModel: RecipesViewModel = viewModel {
+                RecipesViewModel(createSavedStateHandle(), RecipesRepositoryStub)
+            }
             RecipesScreen(
-                categoryId = categoryId,
-                categoryTitle = categoryTitle,
-                categoryImageUrl = categoryImageUrl,
                 onRecipeClick = { recipeId ->
                     navController.navigate(
                         Destination.Recipe.createRoute(recipeId)
                     )
                 },
+                viewModel = viewModel,
             )
         }
 
